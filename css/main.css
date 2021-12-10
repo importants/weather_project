@@ -1,0 +1,609 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  background-color: #f4f5fc;
+}
+
+.wrapper #canvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+.wrapper.dark main .forecast .temp > h1 {
+  color: #fff;
+}
+
+.wrapper.dark main .forecast .temp .dot {
+  border: 6px solid #fff;
+}
+
+.wrapper.dark main .forecast > h2 {
+  color: #fff;
+}
+
+.wrapper.dark main .details .row_details .feels_like > h1 {
+  color: #E1E1E1;
+}
+
+.wrapper.dark main .details .row_details .feels_like .small_temp > h2 {
+  color: #fff;
+}
+
+.wrapper.dark main .details .row_details .feels_like .small_temp .small_dot {
+  border: 2px solid #fff;
+}
+
+.wrapper.dark main .details .row_details .humidity > h1 {
+  color: #E1E1E1;
+}
+
+.wrapper.dark main .details .row_details .humidity .small_temp > h2,
+.wrapper.dark main .details .row_details .humidity .small_temp > h3 {
+  color: #fff;
+}
+
+.wrapper.dark main .details .row_details .sunrise h1,
+.wrapper.dark main .details .row_details .sunset h1 {
+  color: #E1E1E1;
+}
+
+.wrapper.dark main .details .row_details .sunrise h2,
+.wrapper.dark main .details .row_details .sunset h2 {
+  color: #fff;
+}
+
+.wrapper.dark main .details .air_pollution h1 {
+  color: #E1E1E1;
+}
+
+.wrapper.dark main .details .air_pollution h2 {
+  color: #fff;
+}
+
+.wrapper.dark main .DAH .btn_container > div {
+  color: #C5C5C5;
+}
+
+.wrapper.dark main .DAH .btn_container > div:hover {
+  background-color: #747474;
+}
+
+.wrapper.dark main .DAH .btn_container > div.active {
+  background-color: #FFFFFF;
+  color: #545457;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem .small_temp h2,
+.wrapper.dark main .DAH .container .daily_container .hitem .small_temp h2,
+.wrapper.dark main .DAH .container .hourly_container .ditem .small_temp h2,
+.wrapper.dark main .DAH .container .hourly_container .hitem .small_temp h2 {
+  color: #FFFFFF;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem .small_temp .small_dot,
+.wrapper.dark main .DAH .container .daily_container .hitem .small_temp .small_dot,
+.wrapper.dark main .DAH .container .hourly_container .ditem .small_temp .small_dot,
+.wrapper.dark main .DAH .container .hourly_container .hitem .small_temp .small_dot {
+  border: 2px solid #FFFFFF;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem > h3,
+.wrapper.dark main .DAH .container .daily_container .hitem > h3,
+.wrapper.dark main .DAH .container .hourly_container .ditem > h3,
+.wrapper.dark main .DAH .container .hourly_container .hitem > h3 {
+  color: #a8a8a8;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem.active,
+.wrapper.dark main .DAH .container .daily_container .hitem.active,
+.wrapper.dark main .DAH .container .hourly_container .ditem.active,
+.wrapper.dark main .DAH .container .hourly_container .hitem.active {
+  background-color: #e2e2e2;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem.active .small_temp h2,
+.wrapper.dark main .DAH .container .daily_container .hitem.active .small_temp h2,
+.wrapper.dark main .DAH .container .hourly_container .ditem.active .small_temp h2,
+.wrapper.dark main .DAH .container .hourly_container .hitem.active .small_temp h2 {
+  color: #1D1D1D;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem.active .small_temp .small_dot,
+.wrapper.dark main .DAH .container .daily_container .hitem.active .small_temp .small_dot,
+.wrapper.dark main .DAH .container .hourly_container .ditem.active .small_temp .small_dot,
+.wrapper.dark main .DAH .container .hourly_container .hitem.active .small_temp .small_dot {
+  border: 2px solid #1D1D1D;
+}
+
+.wrapper.dark main .DAH .container .daily_container .ditem.active > h3,
+.wrapper.dark main .DAH .container .daily_container .hitem.active > h3,
+.wrapper.dark main .DAH .container .hourly_container .ditem.active > h3,
+.wrapper.dark main .DAH .container .hourly_container .hitem.active > h3 {
+  color: #1D1D1D;
+}
+
+.wrapper main {
+  width: 100%;
+}
+
+.wrapper main .forecast {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  margin-top: 36px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.wrapper main .forecast > img {
+  width: 54px;
+  height: 54px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.wrapper main .forecast .temp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-top: 24px;
+}
+
+.wrapper main .forecast .temp > h1 {
+  font-size: 60px;
+  line-height: 50px;
+  margin-left: 20px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.wrapper main .forecast .temp .dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 6px solid #1a1a1a;
+}
+
+.wrapper main .forecast > h2 {
+  font-size: 20px;
+  color: #575757;
+  margin-top: 16px;
+  font-weight: 400;
+}
+
+.wrapper main .details {
+  width: 100%;
+  margin-top: 56px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  padding: 0 44px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper main .details div > h1,
+.wrapper main .details .row_details > div > h1 {
+  font-size: 14px;
+  color: #4D4D4D;
+  font-weight: 400;
+}
+
+.wrapper main .details h2 {
+  font-weight: 500;
+}
+
+.wrapper main .details .row_details {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.wrapper main .details .row_details > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.wrapper main .details .row_details > div > h2 {
+  margin-left: 28px;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.wrapper main .details .row_details > div .small_temp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: right;
+}
+
+.wrapper main .details .row_details > div .small_temp h2 {
+  margin-left: 24px;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.wrapper main .details .row_details > div .small_temp .small_dot {
+  margin-left: 2px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wrapper main .details .row_details > div .small_temp h3 {
+  font-size: 12px;
+  margin-left: 3px;
+}
+
+.wrapper main .details .air_pollution {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper main .details .air_pollution > h2 {
+  font-size: 20px;
+  margin-left: 15px;
+}
+
+.wrapper main .DAH {
+  width: 100%;
+}
+
+.wrapper main .DAH .btn_container {
+  width: 100%;
+  padding: 0 44px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 24px;
+}
+
+.wrapper main .DAH .btn_container > div {
+  width: 118px;
+  height: 36px;
+  text-align: center;
+  margin-top: 72px;
+  line-height: 36px;
+  border-radius: 18px;
+  color: #4D4D4D;
+  font-weight: 500;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.wrapper main .DAH .btn_container > div:hover {
+  background-color: #4D4D4D;
+  color: #F6F7FF;
+}
+
+.wrapper main .DAH .btn_container > div.active {
+  background-color: #000;
+  color: #F6F7FF;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper main .DAH .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+.wrapper main .DAH .container .daily_container,
+.wrapper main .DAH .container .hourly_container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  height: 0px;
+  text-align: center;
+  overflow-x: scroll;
+}
+
+.wrapper main .DAH .container .daily_container .ditem,
+.wrapper main .DAH .container .daily_container .hitem,
+.wrapper main .DAH .container .hourly_container .ditem,
+.wrapper main .DAH .container .hourly_container .hitem {
+  width: 58px;
+  height: 112px;
+  border-radius: 10px;
+  padding: 16px 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-left: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper main .DAH .container .daily_container .ditem:first-child,
+.wrapper main .DAH .container .daily_container .hitem:first-child,
+.wrapper main .DAH .container .hourly_container .ditem:first-child,
+.wrapper main .DAH .container .hourly_container .hitem:first-child {
+  margin-left: 44px;
+}
+
+.wrapper main .DAH .container .daily_container .ditem:last-child,
+.wrapper main .DAH .container .daily_container .hitem:last-child,
+.wrapper main .DAH .container .hourly_container .ditem:last-child,
+.wrapper main .DAH .container .hourly_container .hitem:last-child {
+  margin-right: 44px;
+}
+
+.wrapper main .DAH .container .daily_container .ditem img,
+.wrapper main .DAH .container .daily_container .hitem img,
+.wrapper main .DAH .container .hourly_container .ditem img,
+.wrapper main .DAH .container .hourly_container .hitem img {
+  width: 36px;
+  height: 36px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.wrapper main .DAH .container .daily_container .ditem .small_temp,
+.wrapper main .DAH .container .daily_container .hitem .small_temp,
+.wrapper main .DAH .container .hourly_container .ditem .small_temp,
+.wrapper main .DAH .container .hourly_container .hitem .small_temp {
+  margin-top: 12px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 4px;
+}
+
+.wrapper main .DAH .container .daily_container .ditem .small_temp h2,
+.wrapper main .DAH .container .daily_container .hitem .small_temp h2,
+.wrapper main .DAH .container .hourly_container .ditem .small_temp h2,
+.wrapper main .DAH .container .hourly_container .hitem .small_temp h2 {
+  font-weight: 500;
+  margin-left: 4px;
+  font-size: 18px;
+  line-height: 15px;
+  color: #000;
+}
+
+.wrapper main .DAH .container .daily_container .ditem .small_temp .small_dot,
+.wrapper main .DAH .container .daily_container .hitem .small_temp .small_dot,
+.wrapper main .DAH .container .hourly_container .ditem .small_temp .small_dot,
+.wrapper main .DAH .container .hourly_container .hitem .small_temp .small_dot {
+  margin-left: 2px;
+  width: 4px;
+  height: 4px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wrapper main .DAH .container .daily_container .ditem > h3,
+.wrapper main .DAH .container .daily_container .hitem > h3,
+.wrapper main .DAH .container .hourly_container .ditem > h3,
+.wrapper main .DAH .container .hourly_container .hitem > h3 {
+  font-size: 14px;
+  color: #4D4D4D;
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+.wrapper main .DAH .container .daily_container .ditem.active,
+.wrapper main .DAH .container .daily_container .hitem.active,
+.wrapper main .DAH .container .hourly_container .ditem.active,
+.wrapper main .DAH .container .hourly_container .hitem.active {
+  background-color: #666666;
+}
+
+.wrapper main .DAH .container .daily_container .ditem.active .small_temp h2,
+.wrapper main .DAH .container .daily_container .hitem.active .small_temp h2,
+.wrapper main .DAH .container .hourly_container .ditem.active .small_temp h2,
+.wrapper main .DAH .container .hourly_container .hitem.active .small_temp h2 {
+  color: #fff;
+}
+
+.wrapper main .DAH .container .daily_container .ditem.active .small_temp .small_dot,
+.wrapper main .DAH .container .daily_container .hitem.active .small_temp .small_dot,
+.wrapper main .DAH .container .hourly_container .ditem.active .small_temp .small_dot,
+.wrapper main .DAH .container .hourly_container .hitem.active .small_temp .small_dot {
+  border: 2px solid #fff;
+}
+
+.wrapper main .DAH .container .daily_container .ditem.active > h3,
+.wrapper main .DAH .container .daily_container .hitem.active > h3,
+.wrapper main .DAH .container .hourly_container .ditem.active > h3,
+.wrapper main .DAH .container .hourly_container .hitem.active > h3 {
+  color: #fff;
+}
+
+.wrapper main .DAH .container .daily_container.active, .wrapper main .DAH .container .daily_container.active,
+.wrapper main .DAH .container .hourly_container.active,
+.wrapper main .DAH .container .hourly_container.active {
+  height: 150px;
+}
+
+.dayOrnight {
+  height: 180px;
+}
+
+.dayOrnight.dark .dayBtn {
+  border-radius: 4px;
+  background: #f4f5fc;
+  -webkit-box-shadow: 6px 6px 12px #9f9fa4, -6px -6px 12px #ffffff;
+          box-shadow: 6px 6px 12px #9f9fa4, -6px -6px 12px #ffffff;
+}
+
+.dayOrnight.dark .nightBtn {
+  border-radius: 4px;
+  background: #4D4D4D;
+  -webkit-box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+          box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+}
+
+.dayOrnight > div {
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.dayOrnight .nightBtn {
+  width: 80%;
+  height: 24px;
+  border-radius: 4px;
+  background: #4D4D4D;
+  -webkit-box-shadow: 4px 4px 10px #3d3d3d67, -4px -4px 10px #5d5d5d4d;
+          box-shadow: 4px 4px 10px #3d3d3d67, -4px -4px 10px #5d5d5d4d;
+  color: #fff;
+}
+
+.dayOrnight .dayBtn {
+  width: 80%;
+  height: 24px;
+  border-radius: 4px;
+  background: #f4f5fc;
+  -webkit-box-shadow: inset 5px 5px 13px #adaeb3, inset -5px -5px 13px #ffffff;
+          box-shadow: inset 5px 5px 13px #adaeb3, inset -5px -5px 13px #ffffff;
+  color: #313131;
+}
+
+.dayOrnight .rainBtn,
+.dayOrnight .snowBtn {
+  width: 80%;
+  height: 24px;
+  border-radius: 4px;
+  background: #f4f5fc;
+  -webkit-box-shadow: 5px 5px 13px #adaeb3, -5px -5px 13px #ffffff;
+          box-shadow: 5px 5px 13px #adaeb3, -5px -5px 13px #ffffff;
+  color: #313131;
+}
+
+.dayOrnight .rainBtn.active,
+.dayOrnight .snowBtn.active {
+  border-radius: 4px;
+  background: #4D4D4D;
+  -webkit-box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+          box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+  color: #fff;
+}
+/*# sourceMappingURL=main.css.map */

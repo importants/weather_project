@@ -1,0 +1,515 @@
+@media screen and (min-width: 864px) {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: none;
+  }
+  .cursor {
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 9999;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: -webkit-transform .1s;
+    transition: -webkit-transform .1s;
+    transition: transform .1s;
+    transition: transform .1s, -webkit-transform .1s;
+  }
+  .cursor.style1 {
+    background-color: rgba(255, 165, 0, 0.4);
+    border-color: orange;
+  }
+  .wrapper {
+    background-color: #f4f5fc;
+    border: 1px solid #fff;
+    width: 375px;
+    height: 812px;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    border-radius: 42px;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+    overflow: hidden;
+  }
+  .wrapper.dark {
+    background-color: #545457;
+  }
+  .wrapper.dark .status-bar .left {
+    color: white;
+  }
+  .wrapper.dark .status-bar .right {
+    color: white;
+  }
+  .wrapper.dark .status-bar i {
+    margin-left: 6px;
+  }
+  .wrapper.dark nav > button.back {
+    position: absolute;
+    background-image: url(../img/nav/w/wback.png);
+  }
+  .wrapper.dark nav > button.back:hover {
+    background-image: url(../img/nav/h/hback.png);
+  }
+  .wrapper.dark nav > button.locate {
+    background-image: url(../img/nav/w/wlocate.png);
+  }
+  .wrapper.dark nav > button.locate:hover {
+    background-image: url(../img/nav/h/hlocate.png);
+  }
+  .wrapper.dark nav > button.delete {
+    background-image: url(../img/nav/w/wdelete.png);
+  }
+  .wrapper.dark nav > button.delete.active::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+    -webkit-transform-origin: 15px 1px;
+            transform-origin: 15px 1px;
+  }
+  .wrapper.dark nav > button.delete:hover {
+    background-image: url(../img/nav/h/hdelete.png);
+  }
+  .wrapper.dark nav .title > h1 {
+    color: #fff;
+  }
+  .wrapper.dark nav .title > h2 {
+    color: #E1E1E1;
+  }
+  .wrapper header {
+    width: 100%;
+  }
+  .wrapper header .status-bar {
+    padding: 16px 44px 8px 44px;
+    font-size: 14px;
+    color: black;
+    font-weight: 700;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 375px;
+    margin-bottom: 8px;
+  }
+  .wrapper header .status-bar .left {
+    float: left;
+  }
+  .wrapper header .status-bar .right {
+    float: right;
+  }
+  .wrapper header .status-bar i {
+    margin-left: 6px;
+  }
+  .wrapper header nav {
+    position: relative;
+    height: 70px;
+    margin: 0 auto;
+    padding: 0 44px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .wrapper header nav > .logo {
+    width: 74px;
+    height: 49px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .wrapper header nav > button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: rgba(255, 0, 0, 0);
+    -webkit-transition: background-image 0.2s;
+    transition: background-image 0.2s;
+  }
+  .wrapper header nav > button.back {
+    position: absolute;
+    top: 50%;
+    left: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.back:hover {
+    background-image: url(../img/nav/h/hback.png);
+  }
+  .wrapper header nav > button.locate {
+    position: absolute;
+    top: 50%;
+    right: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/locate.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.locate:hover {
+    background-image: url(../img/nav/h/hlocate.png);
+  }
+  .wrapper header nav > button.delete {
+    position: absolute;
+    top: 50%;
+    right: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/delete.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.delete:hover {
+    background-image: url(../img/nav/h/hdelete.png);
+  }
+  .wrapper header nav > button.delete::after {
+    display: none;
+  }
+  .wrapper header nav > button.delete.active::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    background-color: #3A3A3A;
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+    -webkit-transform-origin: 15px 1px;
+            transform-origin: 15px 1px;
+  }
+  .wrapper header nav .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .wrapper header nav .title > h1 {
+    font-size: 24px;
+    color: #3A3A3A;
+  }
+  .wrapper header nav .title > h2 {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #4D4D4D;
+    font-weight: 400;
+  }
+  .dayOrnight {
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    border-radius: 50px;
+    background: #f4f5fc;
+    -webkit-box-shadow: 20px 20px 60px #cfd0d6, -20px -20px 60px #ffffff;
+            box-shadow: 20px 20px 60px #cfd0d6, -20px -20px 60px #ffffff;
+    border-radius: 10px;
+    width: 100px;
+    height: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .dayOrnight.dark .dayBtn {
+    border-radius: 4px;
+    background: #f4f5fc;
+    -webkit-box-shadow: 6px 6px 12px #9f9fa4, -6px -6px 12px #ffffff;
+            box-shadow: 6px 6px 12px #9f9fa4, -6px -6px 12px #ffffff;
+  }
+  .dayOrnight.dark .nightBtn {
+    border-radius: 4px;
+    background: #4D4D4D;
+    -webkit-box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+            box-shadow: inset 7px 7px 12px #313131, inset -7px -7px 12px #696969;
+  }
+  .dayOrnight > div {
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .dayOrnight .dayBtn {
+    width: 80%;
+    height: 24px;
+    border-radius: 4px;
+    background: #f4f5fc;
+    -webkit-box-shadow: inset 5px 5px 10px #bebfc5, inset -5px -5px 10px #ffffff;
+            box-shadow: inset 5px 5px 10px #bebfc5, inset -5px -5px 10px #ffffff;
+    color: #4D4D4D;
+  }
+  .dayOrnight .nightBtn {
+    width: 80%;
+    height: 24px;
+    border-radius: 4px;
+    background: #4D4D4D;
+    -webkit-box-shadow: 4px 4px 10px #3d3d3d67, -4px -4px 10px #5d5d5d4d;
+            box-shadow: 4px 4px 10px #3d3d3d67, -4px -4px 10px #5d5d5d4d;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 864px) {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .cursor {
+    display: none;
+  }
+  .wrapper {
+    background-color: #f4f5fc;
+    border: 1px solid #fff;
+    width: 375px;
+    height: 812px;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    border-radius: 42px;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+    overflow: hidden;
+  }
+  .wrapper.dark {
+    background-color: #545457;
+  }
+  .wrapper.dark .status-bar .left {
+    color: white;
+  }
+  .wrapper.dark .status-bar .right {
+    color: white;
+  }
+  .wrapper.dark .status-bar i {
+    margin-left: 6px;
+  }
+  .wrapper.dark nav > button.back {
+    position: absolute;
+    background-image: url(../img/nav/w/wback.png);
+  }
+  .wrapper.dark nav > button.back:hover {
+    background-image: url(../img/nav/h/hback.png);
+  }
+  .wrapper.dark nav > button.locate {
+    background-image: url(../img/nav/w/wlocate.png);
+  }
+  .wrapper.dark nav > button.locate:hover {
+    background-image: url(../img/nav/h/hlocate.png);
+  }
+  .wrapper.dark nav > button.delete {
+    background-image: url(../img/nav/w/wdelete.png);
+  }
+  .wrapper.dark nav > button.delete.active::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+    -webkit-transform-origin: 15px 1px;
+            transform-origin: 15px 1px;
+  }
+  .wrapper.dark nav > button.delete:hover {
+    background-image: url(../img/nav/h/hdelete.png);
+  }
+  .wrapper.dark nav .title > h1 {
+    color: #fff;
+  }
+  .wrapper.dark nav .title > h2 {
+    color: #E1E1E1;
+  }
+  .wrapper header {
+    width: 100%;
+  }
+  .wrapper header .status-bar {
+    padding: 16px 44px 8px 44px;
+    font-size: 14px;
+    color: black;
+    font-weight: 700;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 375px;
+    margin-bottom: 8px;
+  }
+  .wrapper header .status-bar .left {
+    float: left;
+  }
+  .wrapper header .status-bar .right {
+    float: right;
+  }
+  .wrapper header .status-bar i {
+    margin-left: 6px;
+  }
+  .wrapper header nav {
+    position: relative;
+    height: 70px;
+    margin: 0 auto;
+    padding: 0 44px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .wrapper header nav > .logo {
+    width: 74px;
+    height: 49px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .wrapper header nav > button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: rgba(255, 0, 0, 0);
+  }
+  .wrapper header nav > button.back {
+    position: absolute;
+    top: 50%;
+    left: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.locate {
+    position: absolute;
+    top: 50%;
+    right: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/locate.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.delete {
+    position: absolute;
+    top: 50%;
+    right: 44px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url(../img/nav/n/delete.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .wrapper header nav > button.delete::after {
+    display: none;
+  }
+  .wrapper header nav > button.delete.active::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    background-color: #3A3A3A;
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+    -webkit-transform-origin: 15px 1px;
+            transform-origin: 15px 1px;
+  }
+  .wrapper header nav .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .wrapper header nav .title > h1 {
+    font-size: 24px;
+    color: #3A3A3A;
+  }
+  .wrapper header nav .title > h2 {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #4D4D4D;
+    font-weight: 400;
+  }
+  .dayOrnight {
+    display: none;
+  }
+}
+/*# sourceMappingURL=nav.css.map */

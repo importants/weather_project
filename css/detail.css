@@ -1,0 +1,215 @@
+.wrapper {
+  overflow-y: scroll;
+}
+
+.wrapper.dark main .title .title_city {
+  color: #fff;
+}
+
+.wrapper.dark main .title > h2 {
+  color: #E1E1E1;
+}
+
+.wrapper.dark main .hor {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.wrapper.dark main .dec {
+  color: #d4d4d4;
+}
+
+.wrapper.dark main .phone_box > h3 i,
+.wrapper.dark main .address_box > h3 i {
+  color: #fff;
+}
+
+.wrapper.dark main .phone_box > p,
+.wrapper.dark main .address_box > p {
+  color: #d4d4d4;
+}
+
+.wrapper.dark main .tag_box .item {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.wrapper header .status-bar {
+  background-color: transparent;
+}
+
+.wrapper header .status-bar .left {
+  color: #e4e4e4;
+}
+
+.wrapper header .status-bar i {
+  color: #e4e4e4;
+}
+
+.wrapper header nav {
+  background: none;
+}
+
+.wrapper header nav button.back {
+  width: 40px;
+  height: 40px;
+  background-image: url(../img/nav/w/wback.png);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background-repeat: none;
+  background-size: 32px 40px;
+  background-position: 2px 4px;
+}
+
+.wrapper img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 300px;
+  z-index: -100;
+  background-color: #000;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.wrapper main {
+  margin-top: 200px;
+  width: 100%;
+  padding: 0 44px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 40px;
+}
+
+.wrapper main .hor {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(156, 156, 156, 0.1);
+  margin-bottom: 24px;
+}
+
+.wrapper main .title {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+}
+
+.wrapper main .title h1 {
+  font-size: 24px;
+}
+
+.wrapper main .title h2 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #636363;
+  line-height: 30px;
+}
+
+.wrapper main .dec {
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+  margin-bottom: 24px;
+  color: #474747;
+}
+
+.wrapper main .address_box {
+  margin-bottom: 16px;
+}
+
+.wrapper main .phone_box,
+.wrapper main .address_box {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-right: 60px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.wrapper main .phone_box h3,
+.wrapper main .address_box h3 {
+  font-size: 14px;
+  margin-right: 20px;
+  color: #414141;
+}
+
+.wrapper main .phone_box p,
+.wrapper main .address_box p {
+  color: #414141;
+  line-height: 20px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+
+.wrapper main .tag_box {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.wrapper main .tag_box .item {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 2px 16px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.wrapper main .tag_box .item:nth-child(2n) {
+  margin: 0 8px;
+  margin-bottom: 12px;
+}
+/*# sourceMappingURL=detail.css.map */

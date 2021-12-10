@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/start.css" />
+    <title>Document</title>
+    <style>
+      body {
+        max-width: 375px;
+        margin: 0 auto;
+        animation: fadein 700ms ease-out;
+        -moz-animation: fadein 700ms ease-out; /* Firefox */
+        -webkit-animation: fadein 700ms ease-out; /* Safari and  Chrome */
+        -o-animation: fadein 700ms ease-out; /* Opera */
+      }
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <div class="wrapper">
+      <header>
+        <div class="status-bar">
+          <span class="left">3:18</span>
+          <span class="right"
+            ><i class="fas fa-signal"></i><i class="fas fa-wifi"></i
+            ><i class="fas fa-battery-three-quarters"></i
+          ></span>
+        </div>
+        <nav>
+          <img class="logo" src="./img/nav/n/logo.png" />
+        </nav>
+      </header>
+      <main>
+        <section class="latest_campsite">
+          <h1>Latest Campsite</h1>
+          <div class="container">
+            <div class="city">
+              <h1>An-san</h1>
+              <img src="./img/weather/n30/01d.png" alt="" />
+              <div class="small_temp">
+                <h2>24</h2>
+                <div class="small_dot"></div>
+              </div>
+            </div>
+            <div class="other">
+              <div class="feels_like">
+                <h1>feels like</h1>
+                <h2>24</h2>
+              </div>
+              <div class="air_Pollution">
+                <h1>air Pollution</h1>
+                <h2>Good</h2>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="camping_map">
+          <h1>Camping Map</h1>
+          <div class="container">
+            <img src="./img/nav/n/map2.png" />
+            <div class="s1">강원</div>
+            <div class="s2">대전</div>
+            <div class="s3">광주</div>
+            <div class="s4">제주</div>
+            <div class="s5">울산</div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="dayOrnight">
+      <div class="dayBtn">낮</div>
+      <div class="nightBtn">밤</div>
+    </div>
+    <script>
+      $(function () {
+        let lastData = {};
+        let isDay, worn, icon;
+        let today = moment();
+        let currentHour = today.format("HH");
+        if (5 < currentHour && currentHour < 18) {
+          console.log(currentHour);
+          localStorage.setItem("isDay", 1);
+        } else {
+          localStorage.setItem("isDay", 0);
+        }
+        //최근 장소
+        if ((lastData = localStorage.getItem("latest"))) {
+          $(".city > h1").text(lastData);
+          let lastdatas = JSON.parse(localStorage.getItem("lastdatas"));
+          console.log(lastdatas);
+          $(".small_temp>h2").text(lastdatas.temp);
+          $(".feels_like>h2").text(lastdatas.feels_like);
+          $(".air_Pollution>h2").text(lastdatas.pol);
+          icon = lastdatas.icon;
+        } else {
+          //만약 처음이라면
+          icon = "01d";
+          $(".city > h1").text("강원");
+          localStorage.setItem("latest", "강원");
+        }
+
+        IsDay();
+
+        function IsDay() {
+          isDay = parseInt(localStorage.getItem("isDay"));
+          if (!isDay) {
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/nav/w/wmap2.png`);
+            $(".logo").attr("src", `./img/nav/w/wlogo.png`);
+            worn = "w";
+          } else {
+            worn = "n";
+          }
+          $(".city > img").attr("src", `./img/weather/${worn}30/${icon}.png`);
+        }
+        $(document).on("click", ".dayBtn", function () {
+          if (!isDay) {
+            //night일때
+            $(".dayOrnight").removeClass("dark");
+            $(".wrapper").removeClass("dark");
+            $(".camping_map img").attr("src", `./img/nav/n/map2.png`);
+            $(".logo").attr("src", `./img/nav/n/logo.png`);
+            isDay = 1;
+            worn = "n";
+            $(".city > img").attr("src", `./img/weather/${worn}30/${icon}.png`);
+          }
+        });
+        $(document).on("click", ".nightBtn", function () {
+          if (isDay) {
+            //day일때
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/nav/w/wmap2.png`);
+            $(".logo").attr("src", `./img/nav/w/wlogo.png`);
+            isDay = 0;
+            worn = "w";
+            $(".city > img").attr("src", `./img/weather/${worn}30/${icon}.png`);
+          }
+        });
+
+        $(".s1").click(function (e) {
+          e.preventDefault();
+
+          localStorage.setItem("latest", "강원");
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        $(".s2").click(function (e) {
+          e.preventDefault();
+
+          localStorage.setItem("latest", "대전");
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        $(".s3").click(function (e) {
+          e.preventDefault();
+
+          localStorage.setItem("latest", "광주");
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        $(".s4").click(function (e) {
+          e.preventDefault();
+
+          localStorage.setItem("latest", "제주");
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        $(".s5").click(function (e) {
+          e.preventDefault();
+
+          localStorage.setItem("latest", "울산");
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        $(document).on("click", ".latest_campsite > .container", function () {
+          linkLocation = "./index.html";
+          localStorage.setItem("isDay", isDay);
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        function redirectPage() {
+          window.location = linkLocation;
+        }
+
+        $(window).mousemove(function (e) {
+          $(".cursor").css({
+            left: e.clientX - 15,
+            top: e.clientY - 15,
+          });
+        });
+        $(window).mousedown(function () {
+          $(".cursor").css("transform", "scale(0.9)");
+        });
+        $(window).mouseup(function () {
+          $(".cursor").css("transform", "scale(1)");
+        });
+      });
+    </script>
+  </body>
+</html>

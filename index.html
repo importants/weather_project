@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <title>Document</title>
+    <style>
+      body {
+        max-width: 375px;
+        margin: 0 auto;
+
+        animation: fadein 700ms ease-out;
+        -moz-animation: fadein 700ms ease-out;
+        /* Firefox */
+        -webkit-animation: fadein 700ms ease-out;
+        /* Safari and  Chrome */
+        -o-animation: fadein 700ms ease-out;
+        /* Opera */
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body>
+    <div class="cursor"></div>
+    <div class="wrapper">
+      <canvas id="canvas"></canvas>
+      <header>
+        <div class="status-bar">
+          <span class="left">3:18</span>
+          <span class="right"
+            ><i class="fas fa-signal"></i><i class="fas fa-wifi"></i
+            ><i class="fas fa-battery-three-quarters"></i
+          ></span>
+        </div>
+        <nav>
+          <button class="back"></button>
+          <div class="title">
+            <h1 id="title_city">An-san</h1>
+            <h2>Today</h2>
+          </div>
+          <button class="locate"></button>
+        </nav>
+      </header>
+      <main>
+        <div class="forecast">
+          <img src="./img/108.png" alt="weather" />
+          <div class="temp">
+            <h1>21</h1>
+            <div class="dot"></div>
+          </div>
+          <h2>Clear sky</h2>
+        </div>
+
+        <div class="details">
+          <div class="row_details">
+            <div class="feels_like">
+              <h1>feels like</h1>
+              <div class="small_temp">
+                <h2>24</h2>
+                <div class="small_dot"></div>
+              </div>
+            </div>
+            <div class="sunrise">
+              <h1>sunrise</h1>
+              <h2>00:00</h2>
+            </div>
+          </div>
+          <div class="row_details">
+            <div class="humidity">
+              <h1>humidity</h1>
+              <div class="small_temp">
+                <h2>30</h2>
+                <h3>%</h3>
+              </div>
+            </div>
+            <div class="sunset">
+              <h1>sunset</h1>
+              <h2>00:00</h2>
+            </div>
+          </div>
+          <div class="air_pollution">
+            <h1>air pollution</h1>
+            <h2>Good</h2>
+          </div>
+        </div>
+
+        <div class="DAH">
+          <div class="btn_container">
+            <div class="hourly active">Hourly</div>
+            <div class="daily">Daily</div>
+          </div>
+          <div class="container">
+            <div class="daily_container"></div>
+            <div class="hourly_container active"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="dayOrnight">
+      <div class="dayBtn">낮</div>
+      <div class="nightBtn">밤</div>
+      <div class="rainBtn">비</div>
+      <div class="snowBtn">눈</div>
+    </div>
+    <script>
+      $(function () {
+        //fadeIn
+        $("body").css("display", "none");
+        $("body").fadeIn(200);
+        let today = moment();
+        let currentHour = today.format("HH");
+        if (5 < currentHour && currentHour < 18) {
+          console.log(currentHour);
+          localStorage.setItem("isDay", 1);
+        } else {
+          localStorage.setItem("isDay", 0);
+        }
+
+        let isDay;
+        let worn;
+        let lastdatas = {};
+        var lastData = localStorage.getItem("latest");
+        let isSnow = 0;
+        let isRain = 0;
+        let startR, startS;
+        IsDay();
+        isForecast();
+
+        $(document).on("click", ".dayBtn", function () {
+          if (!isDay) {
+            //night일때
+            $(".dayOrnight").removeClass("dark");
+            $(".wrapper").removeClass("dark");
+            $(".camping_map img").attr("src", `./img/map2.png`);
+            isDay = 1;
+            worn = "n";
+            isForecast();
+          }
+        });
+        $(document).on("click", ".nightBtn", function () {
+          if (isDay) {
+            //day일때
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/wmap2.png`);
+            isDay = 0;
+            worn = "w";
+            isForecast();
+          }
+        });
+
+        $(document).on("click", ".rainBtn", function () {
+          if (!isRain) {
+            //비 안내릴때
+            $(this).addClass("active");
+            isRain = 1;
+            if (isSnow) {
+              $(".snowBtn").removeClass("active");
+              isSnow = 0;
+              clearTimeout(startS);
+              clearCanvas();
+            }
+          } else {
+            // 비 내릴때
+            $(this).removeClass("active");
+            isRain = 0;
+            clearTimeout(startR);
+            clearCanvas();
+          }
+          isForecast();
+        });
+        $(document).on("click", ".snowBtn", function () {
+          if (!isSnow) {
+            //눈 안내릴때
+            $(this).addClass("active");
+            isSnow = 1;
+            if (isRain) {
+              $(".rainBtn").removeClass("active");
+              isRain = 0;
+              clearTimeout(startR);
+              clearCanvas();
+            }
+          } else {
+            // 눈 내릴때
+            $(this).removeClass("active");
+            isSnow = 0;
+            clearTimeout(startS);
+            clearCanvas();
+          }
+          isForecast();
+        });
+
+        // 데이터 가져오기
+
+        $("#title_city").text(lastData);
+        localStorage.setItem("latest", `${lastData}`);
+        //hourly or daily
+        $(".hourly").click(function () {
+          if (!$(this).hasClass("active")) {
+            $(this).addClass("active");
+            $(".hourly_container").addClass("active");
+            $(".daily").removeClass("active");
+            $(".daily_container").removeClass("active");
+          }
+        });
+
+        $(".daily").click(function () {
+          if (!$(this).hasClass("active")) {
+            $(this).addClass("active");
+            $(".daily_container").addClass("active");
+            $(".hourly").removeClass("active");
+            $(".hourly_container").removeClass("active");
+          }
+        });
+
+        //nav
+        $(".back").click(function () {
+          localStorage.setItem("lastdatas", JSON.stringify(lastdatas));
+          localStorage.setItem("isDay", isDay);
+          window.location = "./campingStart.html";
+        });
+        $(".locate").click(function (e) {
+          e.preventDefault();
+          localStorage.setItem("isDay", isDay);
+          linkLocation = "./campingSpot.html";
+          $("body").fadeOut(200, redirectPage);
+        });
+
+        function redirectPage() {
+          window.location = linkLocation;
+        }
+
+        $(window).mousemove(function (e) {
+          $(".cursor").css({
+            left: e.clientX - 15,
+            top: e.clientY - 15,
+          });
+        });
+        $(window).mousedown(function () {
+          $(".cursor").css("transform", "scale(0.8)");
+        });
+        $(window).mouseup(function () {
+          $(".cursor").css("transform", "scale(1)");
+        });
+
+        function IsDay() {
+          isDay = parseInt(localStorage.getItem("isDay"));
+          if (!isDay) {
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/wmap2.png`);
+            worn = "w";
+          } else {
+            worn = "n";
+          }
+        }
+
+        //날씨 api 가져오기 lat : 위도 / log : 경도
+        function isForecast() {
+          let positionDate = [
+            {
+              id: "강원",
+              lat: 37.75,
+              lon: 126.280975,
+            },
+            {
+              id: "대전",
+              lat: 36.35111,
+              lon: 127.385,
+            },
+            {
+              id: "광주",
+              lat: 35.1595454,
+              lon: 126.8526012,
+            },
+            {
+              id: "제주",
+              lat: 33.348885,
+              lon: 126.280975,
+            },
+            {
+              id: "울산",
+              lat: 35.5936,
+              lon: 129.352,
+            },
+          ];
+          let pos = positionDate.find((item) => item.id === lastData);
+          let id = "1919a4d8a3f3056bf3768c371a57087f";
+
+          $.getJSON(
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${pos.lat.toString()}&lon=${pos.lon.toString()}&exclude=minutely&appid=${id}&units=metric`,
+            function (data) {
+              //current
+              $(".temp>h1").text(data.current.temp.toFixed(1));
+              $(".sunrise>h2").text(
+                moment(data.current.sunrise * 1000).format("HH:mm")
+              );
+              $(".sunset>h2").text(
+                moment(data.current.sunset * 1000).format("HH:mm")
+              );
+              $(".feels_like>.small_temp>h2").text(
+                data.current.feels_like.toFixed(1)
+              );
+              $(".humidity>.small_temp>h2").text(data.current.humidity);
+              $(".forecast>h2").text(data.current.weather[0].description);
+              $(".forecast > img").attr(
+                "src",
+                `./img/weather/${worn}54/${data.current.weather[0].icon}.png`
+              );
+              lastdatas.temp = data.current.temp.toFixed(1);
+              lastdatas.feels_like = data.current.feels_like.toFixed(1);
+              lastdatas.icon = data.current.weather[0].icon;
+              lastdatas.icon;
+
+              if (
+                lastdatas.icon == "09d" ||
+                lastdatas.icon == "10d" ||
+                lastdatas.icon == "09n" ||
+                lastdatas.icon == "10n" ||
+                isRain
+              ) {
+                Rain();
+              } else if (
+                lastdatas.icon == "13d" ||
+                lastdatas.icon == "13n" ||
+                isSnow
+              ) {
+                Snow();
+              }
+              //daily
+              $(".daily_container").empty();
+              for (let i = 0; i < data.daily.length; i++) {
+                let bubble = $(
+                  `   <div class="ditem">
+                          <img src="./img/weather/${worn}30/${
+                    data.daily[i].weather[0].icon
+                  }.png" alt="" />
+                          <div class="small_temp">
+                            <h2>${data.daily[i].temp.day.toFixed(1)}</h2>
+                            <div class="small_dot"></div>
+                          </div>
+                          <h3>${moment(data.daily[i].dt * 1000).format(
+                            "ddd"
+                          )}</h3>
+                        </div>`
+                );
+                $(".daily_container").append(bubble);
+              }
+
+              $(".ditem:eq(0)").addClass("active");
+              $(".ditem:eq(0)>img").attr(
+                "src",
+                `./img/weather/${worn === "w" ? "n" : "w"}30/${
+                  data.daily[0].weather[0].icon
+                }.png`
+              );
+              //hourly
+              $(".hourly_container").empty();
+              for (let i = 0; i < 24; i++) {
+                let bubble = $(
+                  `   <div class="hitem">
+                          <img src="./img/weather/${worn}30/${
+                    data.hourly[i].weather[0].icon
+                  }.png" alt="" />
+                          <div class="small_temp">
+                            <h2>${data.hourly[i].temp.toFixed(1)}</h2>
+                            <div class="small_dot"></div>
+                          </div>
+                          <h3>${moment(data.hourly[i].dt * 1000).format(
+                            "HH:mm"
+                          )}</h3>
+                        </div>`
+                );
+                $(".hourly_container").append(bubble);
+              }
+              $(".hitem:eq(0)").addClass("active");
+              $(".hitem:eq(0)>img").attr(
+                "src",
+                `./img/weather/${worn == "w" ? "n" : "w"}30/${
+                  data.hourly[0].weather[0].icon
+                }.png`
+              );
+            }
+          );
+          $.getJSON(
+            `http://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.lat.toString()}&lon=${pos.lon.toString()}&appid=${id}`,
+            function (data) {
+              switch (data.list[0].main.aqi) {
+                case 1:
+                  $(".air_pollution>h2").text("Good");
+                  lastdatas.pol = "Good";
+                  break;
+                case 2:
+                  $(".air_pollution>h2").text("Fair");
+                  lastdatas.pol = "Fair";
+                  break;
+                case 3:
+                  $(".air_pollution>h2").text("Moderate");
+                  lastdatas.pol = "Moderate";
+                  break;
+                case 4:
+                  $(".air_pollution>h2").text("Poor");
+                  lastdatas.pol = "Poor";
+                  break;
+                case 5:
+                  $(".air_pollution>h2").text("very Poor");
+                  lastdatas.pol = "very Poor";
+                  break;
+                default:
+                  break;
+              }
+            }
+          );
+        }
+
+        function clearCanvas() {
+          // canvas
+          var cnvs = document.getElementById("canvas");
+          // context
+          var ctx = canvas.getContext("2d");
+
+          // 픽셀 정리
+          ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+          // 컨텍스트 리셋
+          ctx.beginPath();
+        }
+
+        function Rain() {
+          var canvas = $("#canvas")[0];
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+
+          if (canvas.getContext) {
+            var ctx = canvas.getContext("2d");
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            if (worn === "n") {
+              ctx.strokeStyle = "rgba(174,194,224,0.9)";
+            } else if (worn === "w") {
+              ctx.strokeStyle = "rgba(174,194,224,0.5)";
+            }
+
+            ctx.lineWidth = 1;
+            ctx.lineCap = "round";
+
+            var init = [];
+            var maxParts = 1000;
+            for (var a = 0; a < maxParts; a++) {
+              init.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                l: Math.random() * 1,
+                xs: -4 + Math.random() * 4 + 2,
+                ys: Math.random() * 10 + 10,
+              });
+            }
+
+            var particles = [];
+            for (var b = 0; b < maxParts; b++) {
+              particles[b] = init[b];
+            }
+
+            function draw() {
+              ctx.clearRect(0, 0, w, h);
+              for (var c = 0; c < particles.length; c++) {
+                var p = particles[c];
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+                ctx.stroke();
+              }
+              move();
+            }
+
+            function move() {
+              for (var b = 0; b < particles.length; b++) {
+                var p = particles[b];
+                p.x += p.xs;
+                p.y += p.ys;
+                if (p.x > w || p.y > h) {
+                  p.x = Math.random() * w;
+                  p.y = -20;
+                }
+              }
+            }
+
+            startR = setInterval(draw, 30);
+          }
+        }
+
+        function Snow() {
+          var canvas = $("#canvas")[0];
+          var ctx = canvas.getContext("2d");
+
+          var W = 375; //영역 넓이
+          var H = 750; //영역 높이
+          canvas.width = W;
+          canvas.height = H;
+
+          var mp = 100; //밀도 수치
+          var particles = [];
+          for (var i = 0; i < mp; i++) {
+            particles.push({
+              x: Math.random() * W,
+              y: Math.random() * H,
+              r: Math.random() * 3, //입자 크기 최대치 조절
+              d: Math.random() * mp, //밀도
+            });
+          }
+
+          function draw() {
+            ctx.clearRect(0, 0, W, H);
+            if (worn === "n") {
+              ctx.fillStyle = "rgba(174,194,224,0.9)";
+            } else if (worn === "w") {
+              ctx.fillStyle = "rgba(255,255,255,0.5)";
+            }
+            ctx.beginPath();
+            for (var i = 0; i < mp; i++) {
+              var p = particles[i];
+              ctx.moveTo(p.x, p.y);
+              ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            ctx.fill();
+            update();
+          }
+
+          var angle = 0;
+          function update() {
+            angle = 0;
+            for (var i = 0; i < mp; i++) {
+              var p = particles[i];
+              p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
+              p.x += Math.sin(angle);
+
+              if (p.x > W + 5 || p.x < -5 || p.y > H) {
+                if (i % 3 > 0) {
+                  particles[i] = {
+                    x: Math.random() * W,
+                    y: -10,
+                    r: p.r,
+                    d: p.d,
+                  };
+                } else {
+                  if (Math.sin(angle) > 0) {
+                    particles[i] = {
+                      x: -5,
+                      y: Math.random() * H,
+                      r: p.r,
+                      d: p.d,
+                    };
+                  } else {
+                    particles[i] = {
+                      x: W + 5,
+                      y: Math.random() * H,
+                      r: p.r,
+                      d: p.d,
+                    };
+                  }
+                }
+              }
+            }
+          }
+
+          startS = setInterval(draw, 33);
+        }
+      });
+    </script>
+  </body>
+</html>

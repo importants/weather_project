@@ -1,0 +1,196 @@
+.wrapper {
+    overflow-y: scroll;
+
+    &.dark {
+
+        main {
+            .title {
+                .title_city {
+                    color: #fff;
+                }
+
+                &>h2 {
+                    color: #E1E1E1;
+                }
+            }
+
+            .hor {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .dec {
+                color: #d4d4d4;
+            }
+
+            .phone_box,
+            .address_box {
+                &>h3 {
+                    i {
+                        color: #fff;
+                    }
+                }
+
+                &>p {
+                    color: #d4d4d4;
+                }
+            }
+
+            .tag_box {
+                .item {
+                    color: #fff;
+                    border: 1px solid rgba(255, 255, 255, 0.4);
+                }
+            }
+        }
+    }
+
+    header {
+        .status-bar {
+            background-color: transparent;
+
+            & .left {
+                color: rgb(228, 228, 228);
+            }
+
+            & i {
+                color: rgb(228, 228, 228);
+            }
+        }
+
+        nav {
+            background: none;
+
+            button.back {
+                width: 40px;
+                height: 40px;
+                background-image: url(../img/nav/w/wback.png);
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 20px;
+                background-repeat: none;
+                background-size: 32px 40px;
+                background-position: 2px 4px;
+            }
+        }
+    }
+
+
+
+    img {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 300px;
+        z-index: -100;
+        background-color: #000;
+        object-fit: cover;
+    }
+
+    main {
+
+        margin-top: 200px;
+        width: 100%;
+        padding: 0 44px;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+
+        .hor {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(156, 156, 156, 0.1);
+            margin-bottom: 24px;
+        }
+
+
+
+        .title {
+            width: 100%;
+
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 16px;
+                font-weight: 400;
+                color: rgb(99, 99, 99);
+                line-height: 30px;
+            }
+        }
+
+        .dec {
+            padding: 0 10px;
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 20px;
+            margin-bottom: 24px;
+            color: rgb(71, 71, 71);
+        }
+
+        .address_box {
+            margin-bottom: 16px;
+        }
+
+        .phone_box,
+        .address_box {
+
+            box-sizing: border-box;
+            padding-right: 60px;
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+
+
+            h3 {
+                font-size: 14px;
+                margin-right: 20px;
+                color: rgb(65, 65, 65);
+            }
+
+            p {
+                color: rgb(65, 65, 65);
+                line-height: 20px;
+                font-size: 13px;
+                margin-bottom: 16px;
+                font-weight: 300;
+            }
+        }
+
+        .tag_box {
+            width: 100%;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-start;
+
+
+            .item {
+                flex-shrink: 0;
+                font-size: 13px;
+                font-weight: 500;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 2px 16px;
+                text-align: center;
+                margin-bottom: 12px;
+
+                &:nth-child(2n) {
+                    margin: 0 8px;
+                    margin-bottom: 12px;
+                }
+            }
+        }
+    }
+}

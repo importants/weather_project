@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <title>Document</title>
+    <style>
+      body {
+        max-width: 375px;
+        margin: 0 auto;
+
+        animation: fadein 700ms ease-out;
+        -moz-animation: fadein 700ms ease-out;
+        /* Firefox */
+        -webkit-animation: fadein 700ms ease-out;
+        /* Safari and  Chrome */
+        -o-animation: fadein 700ms ease-out;
+        /* Opera */
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body>
+    <div class="cursor"></div>
+    <div class="wrapper">
+      <header>
+        <div class="status-bar">
+          <span class="left">3:18</span>
+          <span class="right"
+            ><i class="fas fa-signal"></i><i class="fas fa-wifi"></i
+            ><i class="fas fa-battery-three-quarters"></i
+          ></span>
+        </div>
+        <nav>
+          <button class="back"></button>
+        </nav>
+      </header>
+      <img src="" alt="no" />
+      <main>
+        <div class="title">
+          <h1 class="title_city">An-san</h1>
+          <h2>GoCamping</h2>
+        </div>
+        <div class="hor"></div>
+        <p class="dec"></p>
+        <div class="hor"></div>
+        <div class="phone_box">
+          <h3><i class="fas fa-phone"></i></h3>
+          <p class="phone"></p>
+        </div>
+        <div class="address_box">
+          <h3><i class="fas fa-map-marker-alt"></i></h3>
+          <p class="address"></p>
+        </div>
+        <div class="hor"></div>
+        <div class="tag_box"></div>
+      </main>
+    </div>
+    <div class="dayOrnight">
+      <div class="dayBtn">낮</div>
+      <div class="nightBtn">밤</div>
+    </div>
+    <script>
+      $(function () {
+        let isDay;
+        let today = moment();
+        let currentHour = today.format("HH");
+        if (5 < currentHour && currentHour < 18) {
+          console.log(currentHour);
+          localStorage.setItem("isDay", 1);
+        } else {
+          localStorage.setItem("isDay", 0);
+        }
+        IsDay();
+
+        function IsDay() {
+          isDay = parseInt(localStorage.getItem("isDay"));
+          if (!isDay) {
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+          }
+        }
+
+        $(document).on("click", ".dayBtn", function () {
+          if (!isDay) {
+            //night일때
+            $(".dayOrnight").removeClass("dark");
+            $(".wrapper").removeClass("dark");
+            $(".camping_map img").attr("src", `./img/map2.png`);
+            isDay = 1;
+          }
+        });
+        $(document).on("click", ".nightBtn", function () {
+          if (isDay) {
+            //day일때
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/wmap2.png`);
+            isDay = 0;
+          }
+        });
+        let place = JSON.parse(localStorage.getItem("detail"));
+        $(".title_city").text(place.title);
+        $(".title>h2").text(localStorage.getItem("latest"));
+        $(".dec").text(place.dec);
+        $(".phone").text(place.phone);
+        $(".address").text(place.address);
+        if (place.tag) {
+          for (let i = 0; i < place.tag.length; i++) {
+            let bubble = $(`
+        <div class="item">${place.tag[i]}</div>
+      `);
+            $(".tag_box").append(bubble);
+          }
+        }
+
+        $(window).mousemove(function (e) {
+          $(".cursor").css({
+            left: e.clientX - 15,
+            top: e.clientY - 15,
+          });
+          // console.log(e.clientX);
+        });
+        $(window).mousedown(function () {
+          $(".cursor").css("transform", "scale(0.9)");
+        });
+        $(window).mouseup(function () {
+          $(".cursor").css("transform", "scale(1)");
+        });
+
+        $(".back").click(function () {
+          localStorage.removeItem("detail");
+          localStorage.setItem("isDay", isDay);
+          window.location = "./campingSpot.html";
+        });
+        $("img").attr("src", `./img/land/${localStorage.getItem("num")}.jpg`);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/camping.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <title>Document</title>
+    <style>
+      body {
+        max-width: 375px;
+        margin: 0 auto;
+
+        animation: fadein 700ms ease-out;
+        -moz-animation: fadein 700ms ease-out;
+        /* Firefox */
+        -webkit-animation: fadein 700ms ease-out;
+        /* Safari and  Chrome */
+        -o-animation: fadein 700ms ease-out;
+        /* Opera */
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body>
+    <div class="cursor"></div>
+    <div class="wrapper">
+      <header>
+        <div class="status-bar">
+          <span class="left">3:18</span>
+          <span class="right"
+            ><i class="fas fa-signal"></i><i class="fas fa-wifi"></i
+            ><i class="fas fa-battery-three-quarters"></i
+          ></span>
+        </div>
+        <nav>
+          <button class="back"></button>
+          <div class="title">
+            <h1 class="title_city">An-san</h1>
+            <h2>GoCamping</h2>
+          </div>
+          <button class="delete"></button>
+        </nav>
+      </header>
+      <main>
+        <div class="camp_container"></div>
+      </main>
+      <div class="option active">
+        <div class="head">
+          <h1>장소를 추가해주세요!</h1>
+        </div>
+        <form>
+          <div class="title_box">
+            <label>장소이름</label
+            ><input
+              type="name"
+              placeholder="ex) 곰돌이 피크닉"
+              class="title"
+              id="title"
+            />
+          </div>
+          <div class="phone_box">
+            <label>전화번호</label
+            ><input
+              type="phone"
+              placeholder="ex) 000-0000-0000"
+              class="phone"
+              id="phone"
+            />
+          </div>
+          <div class="address_box">
+            <label>주소</label
+            ><input
+              type="address"
+              placeholder="ex) 용인시 수지구 상현동 2020"
+              class="address"
+              id="address"
+            />
+          </div>
+          <div class="dec_box">
+            <label>설명</label
+            ><textarea
+              maxlength="210"
+              placeholder="210자 제한이 있습니다."
+              class="dec"
+              id="dec"
+            ></textarea>
+          </div>
+          <div class="tag_box">
+            <label>태그</label>
+            <div class="flex_box">
+              <input
+                type="name"
+                placeholder="ex) 화장실"
+                class="tag"
+                id="tag"
+              />
+              <div class="ok">입력</div>
+            </div>
+            <div class="tags"></div>
+          </div>
+        </form>
+        <div class="btn_box">
+          <div class="cancel">뒤로가기</div>
+          <div class="add">추가하기</div>
+        </div>
+      </div>
+      <div class="plus"></div>
+    </div>
+    <div class="dayOrnight">
+      <div class="dayBtn">낮</div>
+      <div class="nightBtn">밤</div>
+    </div>
+
+    <script>
+      $(function () {
+        //fadeIn
+        $("body").css("display", "none");
+        $("body").fadeIn(200);
+        let tags = [];
+        var place = [];
+        let today = moment();
+        let currentHour = today.format("HH");
+        if (5 < currentHour && currentHour < 18) {
+          console.log(currentHour);
+          localStorage.setItem("isDay", 1);
+        } else {
+          localStorage.setItem("isDay", 0);
+        }
+        let isDay;
+        IsDay();
+
+        function IsDay() {
+          isDay = parseInt(localStorage.getItem("isDay"));
+          if (!isDay) {
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/map2.png`);
+            $(".back").attr("src", `./img/wback.png`);
+            $(".delete").attr("src", `./img/wlocate.png`);
+          }
+        }
+        $(document).on("click", ".dayBtn", function () {
+          if (!isDay) {
+            //night일때
+            $(".dayOrnight").removeClass("dark");
+            $(".wrapper").removeClass("dark");
+            $(".camping_map img").attr("src", `./img/map2.png`);
+            $(".back").attr("src", `./img/back.png`);
+            $(".delete").attr("src", `./img/locate.png`);
+            isDay = 1;
+          }
+        });
+        $(document).on("click", ".nightBtn", function () {
+          if (isDay) {
+            //day일때
+            $(".dayOrnight").addClass("dark");
+            $(".wrapper").addClass("dark");
+            $(".camping_map img").attr("src", `./img/wmap2.png`);
+            $(".back").attr("src", `./img/wback.png`);
+            $(".delete").attr("src", `./img/wlocate.png`);
+            isDay = 0;
+          }
+        });
+        // 데이터 가져오기
+        var lastData = localStorage.getItem("latest");
+        var title;
+        var placedata;
+        switch (lastData) {
+          case "강원":
+            //강원
+            title = lastData;
+            place = JSON.parse(localStorage.getItem("A1"));
+            placedata = "A1";
+            break;
+          case "대전":
+            //대전
+            title = lastData;
+            place = JSON.parse(localStorage.getItem("A2"));
+            placedata = "A2";
+            break;
+          case "광주":
+            //광주
+            title = lastData;
+            place = JSON.parse(localStorage.getItem("A3"));
+            placedata = "A3";
+            break;
+          case "제주":
+            //제주
+            title = lastData;
+            place = JSON.parse(localStorage.getItem("A4"));
+            placedata = "A4";
+            break;
+          case "울산":
+            //울산
+            title = lastData;
+            place = JSON.parse(localStorage.getItem("A5"));
+            placedata = "A5";
+            break;
+          default:
+            console.log("오류");
+        }
+        $(".title_city").text(title);
+
+        displayArray(place);
+
+        //nav
+        $(".back").click(function () {
+          localStorage.setItem("isDay", isDay);
+          window.location = "./index.html";
+        });
+
+        $(".cancel").click(function () {
+          $(".option").addClass("active");
+        });
+
+        $(".plus").click(function () {
+          $(".option").removeClass("active");
+        });
+
+        $(document).on("keypress", ".tag", function (e) {
+          if (e.keyCode == 13) {
+            if ($(".tag").val()) {
+              let bubble = $(`<div class="tag_item">${$(".tag").val()}</div>`);
+              $(".tags").append(bubble);
+              tags.push($(".tag").val());
+              console.log(tags);
+              $(".tag").val("");
+            } else {
+              $(this).addClass("error");
+
+              $(".tag_box>label").text("태그가 입력되지 않았습니다");
+              $(".tag_box>label").css("color", "red");
+              $(".tag_box>label").animate({ "margin-left": 10 }, 100);
+              $(".tag_box>label").animate({ "margin-left": -10 }, 100);
+              $(".tag_box>label").animate({ "margin-left": 0 }, 100);
+              setTimeout(function () {
+                $(".flex_box > input").removeClass("error");
+                $(".tag_box>label").text("태그");
+                // 낮
+                if (isDay) {
+                  $(".tag_box>label").css("color", "#4D4D4D");
+                } else {
+                  $(".tag_box>label").css("color", "#fff");
+                }
+              }, 2000);
+            }
+          }
+        });
+        $(document).on("click", ".ok", function () {
+          if ($(".tag").val()) {
+            let bubble = $(`<div class="tag_item">${$(".tag").val()}</div>`);
+            $(".tags").append(bubble);
+            tags.push($(".tag").val());
+            console.log(tags);
+            $(".tag").val("");
+          } else {
+            $(".tag").addClass("error");
+
+            $(".tag_box>label").text("태그가 입력되지 않았습니다");
+            $(".tag_box>label").css("color", "red");
+            $(".tag_box>label").animate({ "margin-left": 10 }, 100);
+            $(".tag_box>label").animate({ "margin-left": -10 }, 100);
+            $(".tag_box>label").animate({ "margin-left": 0 }, 100);
+            setTimeout(function () {
+              $(".tag").removeClass("error");
+              $(".tag_box>label").text("태그");
+              // 낮
+              if (isDay) {
+                $(".tag_box>label").css("color", "#4D4D4D");
+              } else {
+                $(".tag_box>label").css("color", "#fff");
+              }
+            }, 2000);
+          }
+        });
+        $(document).on("click", ".tag_item", function () {
+          tags.splice($(this).index(), 1);
+          $(this).remove();
+          console.log(tags);
+        });
+
+        $(".add").click(function () {
+          let title, phone, address, dec;
+          if ($("#title").val() && $("#address").val()) {
+            title = $("#title").val();
+            phone = $("#phone").val();
+            address = $("#address").val();
+            dec = $("#dec").val();
+            $("#title").val("");
+            $("#phone").val("");
+            $("#address").val("");
+            $("#dec").val("");
+            $(".tags").empty();
+            // 배열 추가
+            place.unshift({
+              title: title,
+              phone: phone,
+              address: address,
+              dec: dec,
+              tag: tags,
+            });
+            displayArray(place);
+            $(".option").addClass("active");
+          } else if (!$("#title").val() && !$("#address").val()) {
+            console.log($(".title").val());
+            console.log($(".address").val());
+            $(".title, .address").addClass("error");
+            $(".title_box>label").text("장소 이름이 입력되지 않았습니다");
+            $(".address_box>label").text("주소가 입력되지 않았습니다");
+            $(".title_box>label,.address_box>label").css("color", "red");
+
+            $(".title_box>label").animate({ "margin-left": 10 }, 100);
+            $(".title_box>label").animate({ "margin-left": -10 }, 100);
+            $(".title_box>label").animate({ "margin-left": 0 }, 100);
+
+            $(".address_box>label").animate({ "margin-left": 10 }, 100);
+            $(".address_box>label").animate({ "margin-left": -10 }, 100);
+            $(".address_box>label").animate({ "margin-left": 0 }, 100);
+
+            setTimeout(function () {
+              $(".title,.address").removeClass("error");
+              $(".title_box>label").text("장소 이름");
+              $(".address_box>label").text("주소");
+              // 낮
+              if (isDay) {
+                $(".title_box>label,.address_box>label").css(
+                  "color",
+                  "#4D4D4D"
+                );
+              } else {
+                $(".title_box>label,.address_box>label").css("color", "#fff");
+              }
+            }, 2000);
+          } else if (!$("#title").val() && $("#address").val()) {
+            $(".title").addClass("error");
+            $(".title_box>label").text("장소 이름이 입력되지 않았습니다");
+            $(".title_box>label").css("color", "red");
+            $(".title_box>label").animate({ "margin-left": 10 }, 100);
+            $(".title_box>label").animate({ "margin-left": -10 }, 100);
+            $(".title_box>label").animate({ "margin-left": 0 }, 100);
+            setTimeout(function () {
+              $(".title").removeClass("error");
+              $(".title_box>label").text("장소 이름");
+              // 낮
+              if (isDay) {
+                $(".title_box>label").css("color", "#4D4D4D");
+              } else {
+                $(".title_box>label").css("color", "#fff");
+              }
+            }, 2000);
+          } else {
+            $(".address").addClass("error");
+            $(".address_box>label").text("주소가 입력되지 않았습니다");
+            $(".address_box>label").css("color", "red");
+            $(".address_box>label").animate({ "margin-left": 10 }, 100);
+            $(".address_box>label").animate({ "margin-left": -10 }, 100);
+            $(".address_box>label").animate({ "margin-left": 0 }, 100);
+            setTimeout(function () {
+              $(".address").removeClass("error");
+              $(".address_box>label").text("주소");
+              // 낮
+              if (isDay) {
+                $(".address_box>label").css("color", "#4D4D4D");
+              } else {
+                $(".address_box>label").css("color", "#fff");
+              }
+            }, 2000);
+          }
+        });
+
+        $(window).mousemove(function (e) {
+          $(".cursor").css({
+            left: e.clientX - 15,
+            top: e.clientY - 15,
+          });
+          // console.log(e.clientX);
+        });
+        $(window).mousedown(function () {
+          $(".cursor").css("transform", "scale(0.8)");
+        });
+        $(window).mouseup(function () {
+          $(".cursor").css("transform", "scale(1)");
+        });
+
+        $(".delete").click(function () {
+          $(this).toggleClass("active");
+          $(".camp_container").toggleClass("delete");
+        });
+        $(document).on("click", ".item", function () {
+          if ($(".camp_container").hasClass("delete")) {
+            console.log($(this).index());
+            $(this).fadeOut(400);
+            place.splice($(this).index(), 1);
+            displayArray(place);
+          } else {
+            let data = place[$(this).index()];
+            localStorage.setItem("isDay", isDay);
+            linkLocation = "./detail.html";
+            $("body").fadeOut(400, redirectPage);
+            localStorage.setItem("num", $(this).index() + 1);
+            localStorage.setItem(placedata, JSON.stringify(place));
+            localStorage.setItem("detail", JSON.stringify(data));
+          }
+        });
+
+        function redirectPage() {
+          window.location = linkLocation;
+        }
+
+        function displayArray(place) {
+          $(".camp_container").empty();
+          for (let i = 0; i < place.length; i++) {
+            let newTitle = place[i].title;
+            let newPhone = place[i].phone;
+            let newaddress = place[i].address;
+            if (newTitle.length > 11) {
+              newTitle = newTitle.substring(0, 10);
+              newTitle = newTitle.concat("...");
+            }
+            if (newaddress.length > 9) {
+              newaddress = newaddress.substring(0, 8);
+              newaddress = newaddress.concat("...");
+            }
+            let bubble = $(
+              `<div class="item"><img src="./img/land/${
+                i + 1
+              }.jpg" alt="" /><div class="txt"><h1>${newTitle}</h1><div class="phone"><p>전화번호 &nbsp;:</p><p>${newPhone}</p></div><div class="address"><p>주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p><p>${newaddress}</p></div></div></div>`
+            );
+            $(".camp_container").append(bubble);
+          }
+          localStorage.setItem(placedata, JSON.stringify(place));
+        }
+      });
+    </script>
+  </body>
+</html>

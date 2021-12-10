@@ -1,0 +1,559 @@
+@media screen and(min-width: 864px) {
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+        cursor: none;
+    }
+
+    .cursor {
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        z-index: 9999;
+        user-select: none;
+        pointer-events: none;
+        background-color: rgba(0, 0, 0, 0.5);
+
+        transition:
+            transform .1s;
+
+        &.style1 {
+            background-color: rgba(255, 165, 0, 0.4);
+            border-color: orange
+        }
+
+    }
+
+    .wrapper {
+        background-color: #f4f5fc;
+        border: 1px solid #fff;
+        width: 375px;
+        height: 812px;
+        position: absolute;
+        left: 50vw;
+        top: 50vh;
+        transform: translate(-50%, -50%);
+        border-radius: 42px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+        overflow: hidden;
+
+        &.dark {
+            background-color: #545457;
+
+            .status-bar {
+
+
+                & .left {
+
+                    color: white;
+                }
+
+                & .right {
+
+                    color: white
+                }
+
+                & i {
+                    margin-left: 6px;
+
+                }
+            }
+
+
+            nav {
+                &>button {
+
+                    &.back {
+                        position: absolute;
+                        background-image: url(../img/nav/w/wback.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hback.png);
+                        }
+
+                    }
+
+                    &.locate {
+                        background-image: url(../img/nav/w/wlocate.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hlocate.png);
+                        }
+                    }
+
+                    &.delete {
+                        &.active::after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 30px;
+                            height: 2px;
+                            background-color: white;
+                            transform: translate(-50%, -50%) rotate(30deg);
+                            transform-origin: 15px 1px;
+                        }
+
+                        background-image: url(../img/nav/w/wdelete.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hdelete.png);
+                        }
+                    }
+                }
+
+                .title {
+
+                    &>h1 {
+                        color: #fff;
+                    }
+
+                    &>h2 {
+                        color: #E1E1E1;
+                    }
+                }
+            }
+        }
+
+
+        header {
+            width: 100%;
+
+            .status-bar {
+                padding: 16px 44px 8px 44px;
+                font-size: 14px;
+                color: rgb(0, 0, 0);
+                font-weight: 700;
+                overflow: hidden;
+                box-sizing: border-box;
+                width: 375px;
+                margin-bottom: 8px;
+
+                & .left {
+                    float: left;
+                }
+
+                & .right {
+                    float: right;
+                }
+
+                & i {
+                    margin-left: 6px;
+                }
+            }
+
+            nav {
+                position: relative;
+                height: 70px;
+                margin: 0 auto;
+                padding: 0 44px;
+                box-sizing: border-box;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: center;
+
+                &>.logo {
+                    width: 74px;
+                    height: 49px;
+                    object-fit: cover;
+
+                }
+
+                &>button {
+                    width: 32px;
+                    height: 32px;
+                    border: none;
+                    background-color: rgba(255, 0, 0, 0);
+                    transition: background-image 0.2s;
+
+                    &.back {
+                        position: absolute;
+                        top: 50%;
+                        left: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/back.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hback.png);
+                        }
+                    }
+
+                    &.locate {
+                        position: absolute;
+                        top: 50%;
+                        right: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/locate.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hlocate.png);
+                        }
+                    }
+
+                    &.delete {
+                        position: absolute;
+                        top: 50%;
+                        right: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/delete.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hdelete.png);
+                        }
+
+                        &::after {
+                            display: none;
+                        }
+
+                        &.active::after {
+                            display: block;
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 30px;
+                            height: 2px;
+                            background-color: #3A3A3A;
+                            transform: translate(-50%, -50%) rotate(30deg);
+                            transform-origin: 15px 1px;
+                        }
+                    }
+                }
+
+                .title {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                    align-items: center;
+
+                    &>h1 {
+                        font-size: 24px;
+                        color: #3A3A3A;
+
+                    }
+
+                    &>h2 {
+                        margin-top: 4px;
+                        font-size: 14px;
+                        color: #4D4D4D;
+                        font-weight: 400;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .dayOrnight {
+        position: fixed;
+        top: 50%;
+        right: 100px;
+        border-radius: 50px;
+        background: #f4f5fc;
+        box-shadow: 20px 20px 60px #cfd0d6,
+            -20px -20px 60px #ffffff;
+        border-radius: 10px;
+        width: 100px;
+        height: 80px;
+        display: flex;
+        padding: 10px 0;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        align-items: center;
+
+        &.dark {
+            .dayBtn {
+                border-radius: 4px;
+                background: #f4f5fc;
+                box-shadow: 6px 6px 12px #9f9fa4,
+                    -6px -6px 12px #ffffff;
+            }
+
+            .nightBtn {
+                border-radius: 4px;
+                background: #4D4D4D;
+                box-shadow: inset 7px 7px 12px #313131,
+                    inset -7px -7px 12px #696969;
+            }
+        }
+
+        &>div {
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .dayBtn {
+            width: 80%;
+            height: 24px;
+            border-radius: 4px;
+            background: #f4f5fc;
+            box-shadow: inset 5px 5px 10px #bebfc5,
+                inset -5px -5px 10px #ffffff;
+            color: #4D4D4D;
+        }
+
+        .nightBtn {
+            width: 80%;
+            height: 24px;
+            border-radius: 4px;
+            background: #4D4D4D;
+            box-shadow: 4px 4px 10px #3d3d3d67,
+                -4px -4px 10px #5d5d5d4d;
+            color: #fff;
+        }
+    }
+}
+
+@media screen and (max-width:864px) {
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+
+    }
+
+    .cursor {
+        display: none;
+    }
+
+    .wrapper {
+        background-color: #f4f5fc;
+        border: 1px solid #fff;
+        width: 375px;
+        height: 812px;
+        position: absolute;
+        left: 50vw;
+        top: 50vh;
+        transform: translate(-50%, -50%);
+        border-radius: 42px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+        overflow: hidden;
+
+        &.dark {
+            background-color: #545457;
+
+            .status-bar {
+
+
+                & .left {
+
+                    color: white;
+                }
+
+                & .right {
+
+                    color: white
+                }
+
+                & i {
+                    margin-left: 6px;
+
+                }
+            }
+
+
+            nav {
+                &>button {
+
+                    &.back {
+                        position: absolute;
+                        background-image: url(../img/nav/w/wback.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hback.png);
+                        }
+                    }
+
+                    &.locate {
+                        background-image: url(../img/nav/w/wlocate.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hlocate.png);
+                        }
+                    }
+
+                    &.delete {
+                        &.active::after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 30px;
+                            height: 2px;
+                            background-color: white;
+                            transform: translate(-50%, -50%) rotate(30deg);
+                            transform-origin: 15px 1px;
+                        }
+
+                        background-image: url(../img/nav/w/wdelete.png);
+
+                        &:hover {
+                            background-image: url(../img/nav/h/hdelete.png);
+                        }
+                    }
+                }
+
+                .title {
+
+                    &>h1 {
+                        color: #fff;
+                    }
+
+                    &>h2 {
+                        color: #E1E1E1;
+                    }
+                }
+            }
+        }
+
+
+        header {
+            width: 100%;
+
+            .status-bar {
+                padding: 16px 44px 8px 44px;
+                font-size: 14px;
+                color: rgb(0, 0, 0);
+                font-weight: 700;
+                overflow: hidden;
+                box-sizing: border-box;
+                width: 375px;
+                margin-bottom: 8px;
+
+                & .left {
+                    float: left;
+                }
+
+                & .right {
+                    float: right;
+                }
+
+                & i {
+                    margin-left: 6px;
+                }
+            }
+
+            nav {
+                position: relative;
+                height: 70px;
+                margin: 0 auto;
+                padding: 0 44px;
+                box-sizing: border-box;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: center;
+
+                &>.logo {
+                    width: 74px;
+                    height: 49px;
+                    object-fit: cover;
+
+                }
+
+                &>button {
+                    width: 32px;
+                    height: 32px;
+                    border: none;
+                    background-color: rgba(255, 0, 0, 0);
+
+                    &.back {
+                        position: absolute;
+                        top: 50%;
+                        left: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/back.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+
+                    &.locate {
+                        position: absolute;
+                        top: 50%;
+                        right: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/locate.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+
+                    &.delete {
+                        position: absolute;
+                        top: 50%;
+                        right: 44px;
+                        transform: translateY(-50%);
+                        background-image: url(../img/nav/n/delete.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+
+                        &::after {
+                            display: none;
+                        }
+
+                        &.active::after {
+                            display: block;
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 30px;
+                            height: 2px;
+                            background-color: #3A3A3A;
+                            transform: translate(-50%, -50%) rotate(30deg);
+                            transform-origin: 15px 1px;
+                        }
+                    }
+                }
+
+                .title {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                    align-items: center;
+
+                    &>h1 {
+                        font-size: 24px;
+                        color: #3A3A3A;
+
+                    }
+
+                    &>h2 {
+                        margin-top: 4px;
+                        font-size: 14px;
+                        color: #4D4D4D;
+                        font-weight: 400;
+                    }
+                }
+
+            }
+        }
+    }
+
+
+    .dayOrnight {
+        display: none;
+    }
+}

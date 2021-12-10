@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App</title>
+    <style></style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <img id="icon" />
+    <div id="city"></div>
+    <div id="weather"></div>
+    <div id="temp"></div>
+    <div id="temp_minmax"></div>
+    <div id="forecast"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+      $(function () {
+        let id = "1919a4d8a3f3056bf3768c371a57087f";
+        navigator.geolocation.getCurrentPosition(function (position) {
+          // 현재 위치 찾는 법
+          let polat = position.coords.latitude;
+          let polong = position.coords.longitude;
+
+          // 요일별, 시간별 날씨
+          $.getJSON(
+            `http://api.openweathermap.org/data/2.5/onecall?lat=${polat}&lon=${polong}&exclude=minutely,alert&appid=${id}&units=metric`,
+            function (data) {
+              console.log(data);
+              //   for (let i = 0; i < 8; ) {
+              //     0 오늘 ~ 7 다음주
+              //   }
+            }
+          );
+          // 대기질 오염도
+          $.getJSON(
+            `http://api.openweathermap.org/data/2.5/air_pollution?lat=${polat}&lon=${polong}&appid=${id}`,
+            function (data) {
+              console.log(data);
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
