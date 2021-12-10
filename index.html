@@ -5,23 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./css/nav.css" />
-    <link rel="stylesheet" href="./css/main.css" />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    />
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./css/start.css" />
     <title>Document</title>
     <style>
       body {
         max-width: 375px;
         margin: 0 auto;
-
         animation: fadein 700ms ease-out;
         -moz-animation: fadein 700ms ease-out;
         /* Firefox */
@@ -29,6 +25,31 @@
         /* Safari and  Chrome */
         -o-animation: fadein 700ms ease-out;
         /* Opera */
+      }
+
+      .wrapper {
+        background-color: #f4f5fc;
+        color: #fff;
+        border: 1px solid #fff;
+        width: 375px;
+        height: 812px;
+        position: absolute;
+        left: 50vw;
+        top: 50vh;
+        transform: translate(-50%, -50%);
+        border-radius: 42px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+      }
+
+      img {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 74px;
+        height: 49px;
+        object-fit: cover;
       }
 
       @keyframes fadein {
@@ -79,558 +100,225 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
   </head>
 
   <body>
-    <div class="cursor"></div>
     <div class="wrapper">
-      <canvas id="canvas"></canvas>
-      <header>
-        <div class="status-bar">
-          <span class="left">3:18</span>
-          <span class="right"
-            ><i class="fas fa-signal"></i><i class="fas fa-wifi"></i
-            ><i class="fas fa-battery-three-quarters"></i
-          ></span>
-        </div>
-        <nav>
-          <button class="back"></button>
-          <div class="title">
-            <h1 id="title_city">An-san</h1>
-            <h2>Today</h2>
-          </div>
-          <button class="locate"></button>
-        </nav>
-      </header>
-      <main>
-        <div class="forecast">
-          <img src="./img/108.png" alt="weather" />
-          <div class="temp">
-            <h1>21</h1>
-            <div class="dot"></div>
-          </div>
-          <h2>Clear sky</h2>
-        </div>
-
-        <div class="details">
-          <div class="row_details">
-            <div class="feels_like">
-              <h1>feels like</h1>
-              <div class="small_temp">
-                <h2>24</h2>
-                <div class="small_dot"></div>
-              </div>
-            </div>
-            <div class="sunrise">
-              <h1>sunrise</h1>
-              <h2>00:00</h2>
-            </div>
-          </div>
-          <div class="row_details">
-            <div class="humidity">
-              <h1>humidity</h1>
-              <div class="small_temp">
-                <h2>30</h2>
-                <h3>%</h3>
-              </div>
-            </div>
-            <div class="sunset">
-              <h1>sunset</h1>
-              <h2>00:00</h2>
-            </div>
-          </div>
-          <div class="air_pollution">
-            <h1>air pollution</h1>
-            <h2>Good</h2>
-          </div>
-        </div>
-
-        <div class="DAH">
-          <div class="btn_container">
-            <div class="hourly active">Hourly</div>
-            <div class="daily">Daily</div>
-          </div>
-          <div class="container">
-            <div class="daily_container"></div>
-            <div class="hourly_container active"></div>
-          </div>
-        </div>
-      </main>
-    </div>
-    <div class="dayOrnight">
-      <div class="dayBtn">낮</div>
-      <div class="nightBtn">밤</div>
-      <div class="rainBtn">비</div>
-      <div class="snowBtn">눈</div>
+      <img src="./img/nav/n/logo.png" />
     </div>
     <script>
       $(function () {
-        //fadeIn
+        localStorage.clear();
         $("body").css("display", "none");
-        $("body").fadeIn(200);
-        let today = moment();
-        let currentHour = today.format("HH");
-        if (5 < currentHour && currentHour < 18) {
-          console.log(currentHour);
-          localStorage.setItem("isDay", 1);
-        } else {
-          localStorage.setItem("isDay", 0);
+        $("body").fadeIn(400);
+        localStorage.setItem("isDay", 1);
+
+        setTimeout(function startPage() {
+          linkLocation = "./campingStart.html";
+          $("body").fadeOut(400, redirectPage);
+        }, 1500);
+
+        function startPage() {
+          linkLocation = "./campingStart.html";
+          $("body").fadeOut(400, redirectPage);
         }
-
-        let isDay;
-        let worn;
-        let lastdatas = {};
-        var lastData = localStorage.getItem("latest");
-        let isSnow = 0;
-        let isRain = 0;
-        let startR, startS;
-        IsDay();
-        isForecast();
-
-        $(document).on("click", ".dayBtn", function () {
-          if (!isDay) {
-            //night일때
-            $(".dayOrnight").removeClass("dark");
-            $(".wrapper").removeClass("dark");
-            $(".camping_map img").attr("src", `./img/map2.png`);
-            isDay = 1;
-            worn = "n";
-            isForecast();
-          }
-        });
-        $(document).on("click", ".nightBtn", function () {
-          if (isDay) {
-            //day일때
-            $(".dayOrnight").addClass("dark");
-            $(".wrapper").addClass("dark");
-            $(".camping_map img").attr("src", `./img/wmap2.png`);
-            isDay = 0;
-            worn = "w";
-            isForecast();
-          }
-        });
-
-        $(document).on("click", ".rainBtn", function () {
-          if (!isRain) {
-            //비 안내릴때
-            $(this).addClass("active");
-            isRain = 1;
-            if (isSnow) {
-              $(".snowBtn").removeClass("active");
-              isSnow = 0;
-              clearTimeout(startS);
-              clearCanvas();
-            }
-          } else {
-            // 비 내릴때
-            $(this).removeClass("active");
-            isRain = 0;
-            clearTimeout(startR);
-            clearCanvas();
-          }
-          isForecast();
-        });
-        $(document).on("click", ".snowBtn", function () {
-          if (!isSnow) {
-            //눈 안내릴때
-            $(this).addClass("active");
-            isSnow = 1;
-            if (isRain) {
-              $(".rainBtn").removeClass("active");
-              isRain = 0;
-              clearTimeout(startR);
-              clearCanvas();
-            }
-          } else {
-            // 눈 내릴때
-            $(this).removeClass("active");
-            isSnow = 0;
-            clearTimeout(startS);
-            clearCanvas();
-          }
-          isForecast();
-        });
-
-        // 데이터 가져오기
-
-        $("#title_city").text(lastData);
-        localStorage.setItem("latest", `${lastData}`);
-        //hourly or daily
-        $(".hourly").click(function () {
-          if (!$(this).hasClass("active")) {
-            $(this).addClass("active");
-            $(".hourly_container").addClass("active");
-            $(".daily").removeClass("active");
-            $(".daily_container").removeClass("active");
-          }
-        });
-
-        $(".daily").click(function () {
-          if (!$(this).hasClass("active")) {
-            $(this).addClass("active");
-            $(".daily_container").addClass("active");
-            $(".hourly").removeClass("active");
-            $(".hourly_container").removeClass("active");
-          }
-        });
-
-        //nav
-        $(".back").click(function () {
-          localStorage.setItem("lastdatas", JSON.stringify(lastdatas));
-          localStorage.setItem("isDay", isDay);
-          window.location = "./campingStart.html";
-        });
-        $(".locate").click(function (e) {
-          e.preventDefault();
-          localStorage.setItem("isDay", isDay);
-          linkLocation = "./campingSpot.html";
-          $("body").fadeOut(200, redirectPage);
-        });
 
         function redirectPage() {
           window.location = linkLocation;
         }
 
-        $(window).mousemove(function (e) {
-          $(".cursor").css({
-            left: e.clientX - 15,
-            top: e.clientY - 15,
-          });
-        });
-        $(window).mousedown(function () {
-          $(".cursor").css("transform", "scale(0.8)");
-        });
-        $(window).mouseup(function () {
-          $(".cursor").css("transform", "scale(1)");
-        });
+        // 장소 데이터
+        let s1 = [
+          {
+            title: "국립화천 숲속야영장",
+            phone: "010-5360-0001",
+            address: "강원도 화천군 간동면 배후령길 1144-25",
+            dec: "오염원이 전혀없는 청정지역 깊은 산속에 자리하고 있으며 유적지를 연상시키는 전면적에 쌓아올린 자연석 석축이 자랑입니다주변에 병천순대타운골목과 독립기념관, 각원사좌불상이 있습니다",
+            tag: ["불멍", "화장실", "수돗물"],
+          },
+          {
+            title: "동강전망휴양림오토캠핑장",
+            phone: "010-5360-0002",
+            address: "강원 정선군 신동읍 동강로 916-212",
+            dec: "우리나라에서 가장 아름답고 보존이 잘 된 강으로 통하는 동강. 정선 가수리를 들머리로 운치리와 제장마을,연포마을 차례로 거쳐 영월에서 서강을 만나기까지 장장 65km를 구절양장으로 흐른다. 동강이 특별한 것은 물 흐름의 모양새에 있다. 백두대간의 산세를 따라 구절양장으로 흐르다 못해 물이 고인 듯 깊은 소를 수없이 만들고 지나간다. 경치좋은 동강중에서도 최고로 일컬어지는 곳이 고성산성과 연포마을 주변. 백운산 자락을 앞에 두고 하늘을 가리는 뼝대와 모래 강변이 번갈아 나타나는 풍경이 가히 절경이다. 동강 전망자연휴양림은 바로 이곳에 자리잡고 있다. 고성산성 앞에서 산으로 난 길을 올라가야 하는데 마치 한계령처럼 구비길이 이어진다. 힘들게 오르고 나면 발아래로 동강의 물길이 아스라이 지나가고 고봉준령들이 주변을 빙둘러 싸고 있는 모습이 말로만 듣던 명당이 이런 것이었구나 싶어진다. 해발 600m에 위치한 동강전망자연휴양림오토캠핑장은 풍경 하나만큼은 최고다. 눈앞에는 산이 너울너울 능선을 이루고, 발아래 강이 굽이굽이 산을 휘감아 흐른다. 강과 산이 만들어내는 풍경도 명품이지만 이곳의 또 다른 자랑거리는 운해다. 백운산과 그 뒤로 겹겹이 서 있는 능선 사이로 넘실대는 운해가 말 그대로 장관을 이룬다. 발아래 구름바다가 펼쳐지면 마치 구름 위에 텐트를 친 듯 황홀하다. 가장 인기 있는 사이트는 전망대 옆으로 이어져 있는 데크 사이트. 1년내내 예약이 밀린다 할 정도로 캠퍼들에게는 꿈의 장소다.",
+            tag: ["데크", "동강", "화장실 없음"],
+          },
+          {
+            title: "양양 포레스트캠핑장",
+            phone: "010-5360-0003",
+            address: "강원 양양군 현북면 검소길 117 양양 포레스트캠핑장",
+            dec: "강원도 양양군 현북면에 위치한 양양포레스트캠핑장은 하조대 해수욕장과 가깝다. 동해고속도로 하조대 나들목에서 나와 하조대해수욕장 사거리에서 산쪽으로 우회전해 들어가면 된다. 양양포레스트캠핑장은 계곡 바로 옆에 조성된 잔디밭과 데크, 수영장이 잘 어루러진 아름다운 곳이다. 사이트는 8개로 작은 규모지만, 사이트 별로 넓은 공간이 제공되고 파라솔이 있는 나무 테이블이 있어 럭셔리한 캠핑을 즐길 수 있다. 때문에 가족단위의 캠핑 패밀리들이 즐겨 찾는다. 이곳은 산과 숲이 캠핑장 빙둘러 감싸고 있어 계절마다의 풍경이 훌륭하지만 특히 여름철에 물놀이를 하기에 아주 좋다. 캠핑장 잔디마당 한켠에 상당히 큰 규모의 수영장이 있기도 하고, 캠핑장 바로 옆으로 물놀이 하기에 아주 좋은 계곡이 흐로고 있어서다.",
+            tag: ["전망대", "수영장"],
+          },
+          {
+            title: "맹방 비치캠핑장",
+            phone: "010-5360-0004",
+            address: "강원도 삼척시 근덕면 하맹방리 산 1-7",
+            dec: "강원도 지역의 동해 해변에서 가장 긴 백사장을 보유하고 있는 맹방해수욕장 바로 옆 해송숲에 조성된 국민여가 캠핑장이다. 해송을 훼손하지 않고 친환경 건축공법을 이용해 자연 그대로를 보존하면서도 캠핑에 최적화된 환경을 제공하는 곳으로 공공캠핑장의 모범사례로 알려져 있다. 맹방비치캠핑장은 스마트 캠핑 시스템을 도입하여 출입관리에서부터 화장실등 편의시설 이용까지 온라인 시스템을 통해 간편하게 이용할 수 있도록 설계되었다. 때문 이곳에서는 주차장 및 화장실을 이용하는 전용키를 발급받아야 한다.캠핑장에서 해변쪽 이면도로를 건너면 바로 해수욕장이고 오른편으로는 마읍천이 흘러 민물과 바다를 함께 즐길 수 있다.",
+            tag: ["화장실", "편의시설", "건축공법"],
+          },
+          {
+            title: "강릉 금진리321카라반",
+            phone: "010-5360-0005",
+            address: "강원 강릉시 옥계면 헌화로 247-11",
+            dec: "강릉시 옥계면 금진리 321카라반 해변도로 따라 오시면 금진해변가운데 공용주차장 뒷편입니다. 사계절 서핑해변, 수심 낮고 조용히즐길수있는 가족 해수욕장입니다. 카라반에서 도보로 해변까지 1분 카라반 네대입니다 가족끼리 조용히 지낼수있는 아담한카라반 캠핑장입니다",
+            tag: [],
+          },
+        ];
+        let s2 = [
+          {
+            title: "산디마을 생태공원 캠핑장",
+            phone: "010-5360-0001",
+            address: "대전광역시 대덕구 장동 685-1",
+            dec: "산디마을 생태공원 캠핑장은 대전광역시 대덕구에 자리 잡고 있다. 대전시청을 기점으로 시청역네거리와 샘머리네거리를 거쳐 신탄진로와 산디로를 번갈아 타면 닿는다. 도착까지 걸리는 시간은 30분 안팎이다. 대전의 대표 관광지 가운데 하나인 계족산에 위치한 덕분에 캠퍼들 사이에서는 장동 계족산 캠핑장이라 불리기도 한다. 계족산 황톳길이 지척간이라 도보여행과 캠핑을 함께 즐기는 이들이 많다. 이곳은 일반캠핑장 17면을 갖췄다. 사이트 크기는 가로 5.4m 세로 6.4m, 가로 11m 세로 6.4m 두 가지 종류로 나뉜다. 사이트 간 간격이 넓어 프라이빗한 캠핑이 가능하다. 개인 카라반과 트레일러 입장이 가능하며, 이 경우 이용요금은 일반캠핑장과 동일하다. 소형견에 한해 반려동물도 출입할 수 있다. 캠핑장 주변에 계족산을 비롯해 대청호, 한밭수목원 등이 있어 연계관광이 용이하다. 대전 도심과 가까워 맘이 동하는 음식을 찾아 나서기도 손쉽다.",
+            tag: [],
+          },
+          {
+            title: "상소오토캠핑장",
+            phone: "010-5360-0002",
+            address: "대전광역시 동구 상소동 1번지",
+            dec: "상소오토캠핑장은 대전시 동구에 자리 잡고 있다. 대전광역시청을 기점으로 11㎞가량 떨어졌다. 자동차를 타고 대전로, 금산로, 산내로를 차례로 거치면 닿는다. 도착까지 소요되는 시간은 40분 안팎이다. 이곳은 대전 도심과 가까운 거리에 있지만, 여러 수목이 우거진 덕분에 더없이 자연친화적인 캠핑을 만끽할 수 있다. 캠핑장은 중앙 잔디광장을 중심으로 총 4개 구역에 걸쳐 조성했다. 자동차 야영장 50면을 마련했으며, 파쇄석 19면, 데크 9면, 자갈 22면으로 이뤄졌다. 각 사이트에서 전기를 사용할 수 있다. 개인 트레일러와 카라반 입장이 가능하다. 캠핑장 곳곳에 화장실 4개소, 샤워장 2개소를 설치했기 때문에 어느 사이트에 머물든 접근하는 데 어려움이 없다. 매점은 따로 운영하지 않는다. 캠핑장 인근에 만인산, 보문산, 식장산, 대전오월드, 뿌리공원 등 대전의 대표 관광지가 즐비하다. 가까운 거리에 여러 음식점이 있어 식도락의 즐거움도 만끽할 수 있다.",
+            tag: [],
+          },
+          {
+            title: "꿈꾸는 농부 오토캠핑장",
+            phone: "010-5360-0003",
+            address: "대전 동구 산내로 716 (상소동)",
+            dec: "꿈꾸는 농부 오토캠핑장은 대전시 동구에 자리했다. 대전시청을 기점으로 18Km가량 떨어져 있다. 자동차를 타고 대종로, 대전로, 금산로를 차례로 거치면 닿는다. 도착까지 걸리는 시간은 40분 안팎이다. 캠핑장은 상소동 삼림욕장과 대전천 사이에 터를 잡았다. 이 덕분에 청량감 가득한 캠핑을 만끽할 수 있다. 게다가 여름철에는 물놀이로 무더위를 이길 수 있다. 계절마다 풍경을 달리하는 주변 경관 덕택에 시각적인 즐거움을 누릴 수 있는 건 덤이다. 캠핑장에는 자동차 야영장 11면을 마련했으며, 개인 카라반과 트레일러 동반 입장이 가능하다. 바닥은 정원석과 잔디로 이뤄졌다. 반려동물 출입은 소형견에 한해 허용한다. 주중 연박 시 1만원, 주말 연박 시 2만원을 할인해준다. 캠핑장 인근에 식장산과 만인산 등 유명 관광지가 많아 연계관광이 용이하다. 인근에 여러 음식점이 성업 중이라 맘이 동하는 요리도 맛볼 수 있다.",
+            tag: [],
+          },
+          {
+            title: "뿌리공원캠핑장",
+            phone: "010-5360-0004",
+            address: "	대전광역시 중구 안영동 71-2",
+            dec: "뿌리공원 캠핑장은 대전광역시 중구에 자리 잡고 있다. 대전시청을 기점으로 탄방역삼거리 유등천동로를 거치면 닿는다. 도착까지 걸리는 시간은 30분가량이다. 캠핑장은 성씨별 조형물을 비롯해 각종 행사를 개최하는 수변 무대, 피크닉을 즐기기 좋은 잔디 광장 등 즐길 거리 가득한 뿌리공원 내에 위치했다. 이 덕분에 캠핑 외에도 볼거리가 많아 캠퍼들 사이에서 인기다. 캠핑장으로 진입하기 위해서는 주차장 끝에서 물길을 건너야 하는데, 이에 대한 불편 호소가 많아 2018년 8월 현재 새로운 캠핑장 진입로를 만들고 있다. 캠핑장은 가로 2.5m 세로 3.2m의 데크 29면을 갖췄다. 사이트 주변에 식재한 수목이 그늘을 만들어 주는 덕택에 여름철 캠핑에도 불편함이 없다. 캠핑장 자체가 뿌리공원 내에 있어 다른 관광지를 찾아 나설 필요가 없다. 자동차로 10분 거리 안에 다양한 음식점도 많다.",
+            tag: [],
+          },
+          {
+            title: "캠프향기",
+            phone: "010-5360-0005",
+            address: "대전 동구 산내로 710 (상소동)",
+            dec: "캠프향기는 대전광역시 동구에 자리했다. 대전광역시청을 기점으로 목련네거리와 월계교차로를 차례로 거치면 닿는다. 도착까지 소요시간은 40여 분이다. 캠핑장이 산으로 둘러싸인 숲속에 위치한 덕택에 자연친화적인 캠핑을 만끽할 수 있다. 이곳은 글램핑 9개 동과 카라반 6대를 마련했다. 글램핑 9개 동 가운데 5개 동은 반려견과 함께 입실할 수 있다. 독립적인 공간에 개별 울타리를 설치했다. 반려견 1마리 당 1만원의 추가 요금을 내야하며, 2마리까지 입장할 수 있다. 단, 20kg 이내 반려견만 가능하다. 객실 내부에는 침대, TV, 에어컨, 냉장고, 온수보일러 등이 있다. 카라반은 카페 건물 2층 옥탑에 조성했으며, 객실 내부 시설을 글램핑과 별다른 차이가 없다. 캠핑장 주변에 만인산자연휴양림, 상소동 삼림욕장 등이 있어 연계관광이 손쉽다. 닭과 오리 요리와 더불어 갈비, 냉면 등을 내놓는 별천지식당도 가깝다.",
+            tag: [],
+          },
+        ];
+        let s3 = [
+          {
+            title: "광주시민의 숲 야영장",
+            phone: "010-5360-0001",
+            address: "광주광역시 북구 월출동 968번지",
+            dec: "광주광역시 첨단지구에서 자동차로 10분 이내로 달리면 광주시민의숲에 있는 야영장을 만날 수 있다. 이곳은 광주광역시가 직접 운영하는 곳으로 편의시설이 그 어느 곳보다 깔끔하다. 총면적 9,000㎡ 에 야영장 57면(자동차 19면, 일반 38면)이 구축돼 있다. 광주시민의숲은 생긴 지 만 2년 정도에 불과한 최신시설이지만 바로 옆 영산강과 수변공원의 환경과 절묘하게 어우러져 상당히 자연친화적이란 말이 어울린다. 대부분의 사이트에 큰 나무들이 드리워져 그늘을 즐기며 해먹을 설치할 수 있다는 점이 광주시민의숲 야영장의 장점이다. 게다가 산책로도 굉장히 발달해 있어, 아침저녁으로 산책하기에도 좋다. 특히, 유모차를 끌고 다녀도 부담 없는 곳이라 어린 아이를 동반한 가족들이 많이 찾는다. 또한, 이곳은 매년 여름마다 수영장이 운영돼 캠핑을 즐기며 수영도 함께 즐기고 싶은 이들의 여름 휴가지로 추천한다.",
+            tag: [],
+          },
+          {
+            title: "주노글램핑 인 광주",
+            phone: "010-5360-0002",
+            address: "광주 서구 상무자유로 29-1 (치평동)",
+            dec: "주노글램핑 인 광주는 광주광역시 서구에 자리했다. 광주광역시청을 기점으로 자동차를 타고 시청로와 상무자유로를 번갈아 달리면 닿는다. 도착까지 소요 시간은 10분 안팎이다. 캠핑장은 도심 속에 위치했는데, 부지를 자연 친화적으로 꾸민 덕택에 도시에 머문다는 느낌이 전혀 없다. 더욱이 캠핑장 중앙에 분수를 뿜는 수영장을 배치해 한여름에도 시원함을 만끽하며 캠핑을 즐길 수 있다. 캠핑장에는 글램핑 10개 동이 있다. 객실 내부에는 침대, 에어컨, 냉장고, 식기류, 취사도구, 테이블, 의자 화장실, 샤워장, 개수대 등 일상생활이 가능할 정도의 시설이 들어찼다. 캠핑장 주변에는 상무시민공원, 5.18 기념광원, 운천저수지 등 관광자원이 풍부해 연계 여행이 순조롭다. 여러 음식점도 가까운 거리에 있는 덕분에 맘이 동하는 음식을 찾아 나서기에도 무리가 없다.",
+            tag: [],
+          },
+          {
+            title: "영산강 승촌보캠핑장",
+            phone: "010-5360-0003",
+            address: "	광주광역시 남구 승촌동 577",
+            dec: "영산강 승촌보캠핑장은 시내에서의 접근성이 매우 좋고, 유적공원부터 문화장터, 문화관, 자전거 길, 선착장, 축구장, 캠핑장 등등 다양한 볼거리와 즐길 거리를 갖추고 있어 당일치기로도, 1박 2일 캠핑 장소로 최적의 장소다. 2012년 개장했으며 9980㎡의 부지에 캠핑장 53면을 갖추고 있고 세척대, 화장실, 샤워장, 전기시설을 이용할 수 있다. 또한 화롯대 사용이 가능해 바비큐파티도 가능하다. 캠핑 외에도 즐길 거리가 많은 이곳은 넓게 펼쳐진 산책로에서 산책을 하거나 자전거길이 있어 영산강을 보며 나들이하기도 좋다. 또한 영산강문화관에서 영산강과 승촌보에 대한 소개를 담은 전시를 볼 수 있고 전망대에서 탁 트인 풍경과 경치를 감상할 수도 있다. 운동을 좋아하는 이들에게도 이곳은 최적의 장소인데, 근처에 축구장이 있어 다양한 스포츠를 즐길 수 있어 친구, 가족들과 재미있는 시간을 보낼 수 있다.",
+            tag: [],
+          },
+          {
+            title: "광주패밀리랜드 카라반캠핑장",
+            phone: "010-5360-0004",
+            address: "광주 북구 우치로 677 (생용동)",
+            dec: "광주패밀리랜드 카라반 캠핑장은 우치공원 내 잔디광장 7천여㎡ 부지에 조성된 럭셔리 캠핑장으로 도심 속 자연에서 낭만을 즐길 수 있는 힐링 공간이다.모든 카라반은 최신형 편의시설이 갖춰져 있으며, 국내에서 볼수 없는 미국 포레스트리비사의 초대형 카라반을 설치하여 압도적인 스케일을 자랑한다. 아울러, 캠핑과 함께 체육, 예술, 놀이, 관람 등 다양한 문화생활을 즐길 수 있는 시설이 마련되어 있어 가족, 연인, 친구와 다양한 체험을 경험하실 수 있다. 카라반 종류는 4인용 루비, 6인용 에메랄드 A(입식 테이블), 에메랄드 B(좌식 테이블), 다이아몬드 4가지 타입으로 구성되어 있다.",
+            tag: [],
+          },
+          {
+            title: "광산구 국민여가 친환경 오토캠핑장",
+            phone: "010-5360-0005",
+            address: "광주 광산구 탑동길 345 (지산동)",
+            dec: "아라뱃길 두리생태공원 캠핑장은 오토캠핑장 39면, 글램핑15면이 운영중이다. 공용개수대, 샤워장, 매점, 족구장, 배드민턴장, 어린이 놀이터 등의 부대시설을 갖추고 있다.",
+            tag: [],
+          },
+        ];
+        let s4 = [
+          {
+            title: "숲속야영장 휴림",
+            phone: "010-5360-0001",
+            address: "제주도 제주시 애월읍 광령남서길 40",
+            dec: "숲속야영장 휴림은 제주시산림조합에서 운영하는 글램핑, 카라반, 숲속 야영장을 갖추고 있는 자연휴양림 캠핑장이다. 캠핑장은 데크 사이트와 피크닉테이블로 선택이 가능하다. 카라반 내부는 나무로 인테리어가 되어 있어 쾌적함과 안락함을 준다. 내부시설로는 침대, 냉장고, 전자레인지, 에어컨, 전기 인덕션, 전기포트, 취사도구 일체 등이 있어 간단한 음식을 해먹을 수 있다. 캠핑장 한편에는 나무와 제주 자연 속에서 온가족이 함께 즐길 수 있게 ‘에코힐링파트’라는 공간이 있어, 다양한 체험과 더불어, 자연을 만끽하기에 최고의 장소다. 아이들을 위한 닭들 과 토끼가 있는 미니 농장, 숲속 어드벤처 놀이터, 미로공원은 호기심과 모험심을 충족시키기에 충분하다. 캠핑 장비를 준비하지 못한 캠퍼들에게는 완벽준비가 다 갖춰진 글램핑을 이용해 보는 것도 좋다.",
+            tag: [],
+          },
+          {
+            title: "(주)자연인",
+            phone: "010-5360-0002",
+            address: "제주특별자치도 제주시 아란서길 110-0",
+            dec: "자연인 캠핑장은 제주시 중심가에서 5분 거리의 위치하고 있으며 펜션, 야외공연장, 카페, 공방, 레스토랑 등 다양한 부대시설이 함께 있는 캠핑장이다. 근교에 에코랜드, 용두암, 용두암해안도로, 사려니숲길 등 다양한 관광지가 인접해 있어 편리하게 여행할 수 있는 장점이 있는 캠핑장이다. 관리실 건물에는 화장실, 샤워장, 개수대가 있으며, 개수대 안에는 전자레인지, 그릇, 냄비, 컵 등의 취사도구가 구비되어 있어 언제든지 사용할 수 있어 편리하다. 캠핑장에서 운영하는 라이브 음악을 감상하며 생맥주를 마실 수 있는 ‘별빛광장’ 이 있어 맥주 한 잔이 주는 낭만의 시간을 가져보자. 깔끔한 화장실과 샤워장은 정리정돈이 잘 되어 있으며 샤워장엔 치약, 샴푸, 린스, 컨디셔너, 바디워시, 헤어드라이기 등 이 비치되어 있어 전혀 불편함 없이 편리하게 이용할 수 있다. 옷을 보관 할 수 있는 보관함까지 있다.",
+            tag: [],
+          },
+          {
+            title: "골체오름캠핑",
+            phone: "010-5360-0003",
+            address: "제주특별자치도 제주시 조천읍 선흘리 1858-1",
+            dec: "골체오름캠핑은 한 가운데에 잔디 운동장이 있어 아이들이 마음껏 뛰어놀기에 좋은 가족캠핑장이다. 축구공, 배드민턴, 캐치볼, 줄넘기, 훌라후프 등을 무료로 대여해 주고 있어 편하게 놀 수 있는 곳이다. 아이들이 안전하게 노는지 엄마들은 텐트 안에서도 지켜볼 수 있어 좋다. 산뜻하면서도 깔끔한 분위기의 화장실은 장애인용 화장실까지 완벽하게 구비되어 있으며, 각 사이트마다 분전함이 설치되어 있어 전기 사용에도 문제가 없다. 골체오름 캠핑 주변으로는 거문오름, 우진제비오름, 민오름, 부대오름, 부소오름 등 수많은 이야기가 전해지는 오름과 평원이 많아 산책하기에 좋다. 계절마다 다르고, 날씨에 따라 다르고, 시간 때마다 다르며, 심지어 사람의 심리에 따라서도 달리보이는 게 제주 오름이라고 한다. 그만큼 계절과 날씨, 시간 때에 따라 감상하기 좋은 오름들이 많다.",
+            tag: [],
+          },
+          {
+            title: "별헤는 밤",
+            phone: "010-5360-0004",
+            address: "제주시 애월읍 광상로 348",
+            dec: "별헤는밤 캠핑장은 해발 200m에 위치한 애월읍 유수암리에 위치하고 있다. 5개 동의 글램핑과, 2개 동의 카라반 구성으로 되어 있는 캠핑장이다. 인근에 제주공항, 곽지해변, 협재해변, 이호테우해변, 이마트, 애월해안도로 등 제주 서부권의 유명 여행지와 편의시설이 있는 교통요지에 위치해 있다. 카라반 내부는 카라반 내부에는 침대 비롯해 TV, 에어컨, 냉장고, 테이블, 소파와 주방, 주방용품, 화장실과 샤워실 등이 구비되어 있으며, 넓은 공간을 자랑하는 돔 형태의 글램핑에는 침대, 에어컨, TV, 화장실, 샤워실 등을 갖추고 있다. 아침이면 캠핑장내 휴게실에서 무료로 조식을 제공해 준다. 밤이면 손에 잡힐 듯 무수한 별을 감상할 수 있으며, 한치잡이 배의 불빛과 밤바다를 감상할 수 있다.",
+            tag: [],
+          },
+          {
+            title: "한라산국립공원 관음사지구 야영장",
+            phone: "010-5360-0005",
+            address: "제주특별자치도 제주시 오등동 산록북로 588 일원",
+            dec: "한라산 관음사지구 야영장은 제주시 북쪽 아라동에 위치한, 제주시 도심 인근에서 한라산 품에 안겨 캠핑을 즐길 수 있는 곳이다. 제주대학교를 거쳐 1100도로 방면을 우회전하여 제2 신비의 도로를 지나면 관음사 초입에 다다르고, 조금만 더 가면 관음사지구 야영장이 나온다. 야영장은 해발 620m에 있어 한라산의 자연을 느끼기에 좋은 야영장이며, 야영장 주위에는 상록활엽수림인 녹나무와 참나무 그리고 침엽수인 삼나무가 숲을 이루고 있어, 자연생태를 관찰하기에도 좋은 곳이다. 관음사지구 야영장은 획일적인 구획이 아닌 자연스럽게 설치된 30여 개의 사이트가 자리하고 있으며, 모닥불이나 숯불은 사용 금지이며, 휴대용 버너를 이용한 조리만 가능하다. 관음사지구 야영장에서 백록담까지는 8.7㎞ 코스로, 계곡이 깊고 산세가 웅장하며 한라산의 진면목을 볼 수 있다. 한라산 탐방객들이 등반 시에 야영장을 애용할 뿐 아니라, 야영장이 제주시 시내에서 차로 20분이면 도착할 정도로 도심과 가까워 제주시민들의 캠핑장으로 사랑을 듬뿍 받고 있다.",
+            tag: [],
+          },
+        ];
+        let s5 = [
+          {
+            title: "울산 힐링캠프",
+            phone: "010-5360-0001",
+            address: "울산 울주군 상북면 소야정길 10",
+            dec: "가지산 석남사 아래에 있는 5000여평의 대지에, 앞에는 태화강 발원지인 맑고 깨끗한 덕현천이 흐르고 캠프장에는 100년이 넘은 적송이 울창하여 최적의 힐링 장소이며, 잠시만 쉬어가도 현대인의 스트레스가 확 날아가 버리는 몸과 마음이 치유되는 편안한 오토캠핑장이다.",
+            tag: [],
+          },
+          {
+            title: "해오름 야영장",
+            phone: "010-5360-0002",
+            address: "울산 울주군 서생면 해맞이로 1109-17",
+            dec: "전국에서 가장 먼저 해가뜨는 간절곶 도보로 10분 거리에 위치.",
+            tag: [],
+          },
+          {
+            title: "대왕암공원 캠핑장",
+            phone: "010-5360-0003",
+            address: "울산시 동구 등대로 80-61",
+            dec: "대왕암공원 오토캠핑장은 울산시 동구청에서 2016년 12월 각종 부대시설을 갖춰 현대식으로 구성한 오토캠핑장이다. 동해안 최초의 등대인 울기등대가 보이는 곳에 자리하고 있어, 밤이 되면 파도소리와 더불어 등대의 불빛까지 느낄 수 있어 몽환적이면서도 환상적인 분위기를 느낄 수 있다. 동해의 일출을 바로 앞에서 감상할 수 있으며, 상쾌한 바다 바람을 맞으며 캠핑을 할 수 있는 곳, 모든 편의시설이 엄청 깔끔한 곳으로도 유명한 곳이 바로 대왕암 공원 캠핑장이다. 대왕암공원 오토캠핑장은 캠핑사이트 36면, 카라반 17면으로 총 53면의 사이트 공간이 마련되어 있으며, 깨끗하고 정리정돈 잘된 화장실과 샤워실, 개수대 등 이 있다. 입구에서부터 예약자 확인 후 출입이 가능한 곳으로 조용하고 쾌적하게 캠핑을 할 수 있다. 이용 정원은 6명이며, 반려동물은 출입금지이다. 캠핑장내 산책로도 잘 닦여 있어, 아이들이 마음 놓고 뛰어 다니며 놀 수 있다. 각 사이트 마다 테이블이 설치되어 있으며, 여유로운 공간으로 인해 편안히 지낼 수 있다. 아침에 일어나 바다를 보며 대왕암 산책로를 거닐면 자연스레 힐링이 된다. 주변관광지로는 대왕암, 울기등대, 슬도, 소리박물관 등 울산 동구의 여행지가 집결되어 있다.",
+            tag: [],
+          },
+          {
+            title: "캠핑월드",
+            phone: "010-5360-0004",
+            address: "울산광역시 울주군 상북면 덕현리 330",
+            dec: "캠핑월드는 울주군 상북면에 위치하고 있으며, 도심과는 떨어져있는 천혜의 자연환경과 공기가 맑은 곳에 위치한 캠핑장이다. 캠핑장 입구에는 바위에 귀여운 토끼가 그려져 있는 캠핑월드 포토존이 캠퍼들을 맞아준다. 캠핑장은 글램핑과 야영장이 함께 있으며, 넓은 사이트는 텐트를 여유롭게 설치할 수 있어 편하게 지내다 올 수 있어 좋다. 샤워장과 개수대 모두 온수 사용이 가능하며, 24시간 사용이 가능해 더 좋은 캠핑장이다. 최신시설의 개수대에는 가스레인지까지 있어 편리성을 더해주었고, 에어컨도 설치되어 있다. 사이트 공간이 넓어 아이들이 뛰어놀기에 좋으며 여름에는 그늘막이 쳐진 이동식수영장이 있어 아이들이 계곡을 오가며 여름을 보낼 수 있다. 캠핑장내 카라반 입장도 가능하다. 주변 관광지로는 석남사, 가지산, 파래소폭포, 신불산, 에덴벨리조트와 다양한 테마시설을 갖춘 가지산 탄산유황온천이 있다. 온천은 나트륨, 칼슘, 마그네슘이 함유되어 있어 중풍, 동맥경화, 심장병 예방과 성장발육의 효과가 있다고 하니 돌아가는 길에 피로에 지친 몸을 풀어 보자.",
+            tag: [],
+          },
+          {
+            title: "입화산 참살이 숲 야영장",
+            phone: "010-5360-0005",
+            address: "울산광역시 중구 다운동 8번지",
+            dec: "입화산 참살이숲 야영장은 울산 도심에 위치하고 있으며, 울산 중구청에서 운영하고 있는 캠핑장이다. 캠핑장은 입화산 입구에 위치하고 있으며, 차량 진입이 불가능하다. 사이트까지는 걸어가야 하며 짐은, 캠핑장 한쪽으로 모노레일이 설치되어 있어 모든 짐을 싣고 각 해당 사이트로 운반해 준다. 아이들은 처음 보는 모노레일의 역할에 호기심을 나타내며 신기한 듯 쳐다본다. 정말로 움직여 올라가는 광경을 볼 때는 환호성을 지르며 좋아한다. 일반 캠핑장과는 다른 독특한 캠핑장의 모습을 경험하는 순간이다. 캠핑장내 전기 사용이 가능하며, 사이트에서는 연중 숯불사용이 금지되고 있다. 참나무와 소나무로 둘러싸여있어 자연 그늘이 많아 시원하게 캠핑을 즐길 수 있으며, 등산로가 있어 가벼운 산행도 할 수 있어 1석2조의 캠핑을 할 수 있다. 입화산 야영장은 다양한 체험거리가 많은 곳이다. 매주 금, 토, 일 진행하는 숲놀이, 숲 밧줄, 자연물 공예, 타로, 캠핑 요리대회. 별자리 관찰, 숲속의 영화극장. 버블 매직쇼 등 아이들이 경험하고 체험할 다양한 즐길 거리가 많은 캠핑장이다.",
+            tag: [],
+          },
+        ];
 
-        function IsDay() {
-          isDay = parseInt(localStorage.getItem("isDay"));
-          if (!isDay) {
-            $(".dayOrnight").addClass("dark");
-            $(".wrapper").addClass("dark");
-            $(".camping_map img").attr("src", `./img/wmap2.png`);
-            worn = "w";
-          } else {
-            worn = "n";
-          }
-        }
-
-        //날씨 api 가져오기 lat : 위도 / log : 경도
-        function isForecast() {
-          let positionDate = [
-            {
-              id: "강원",
-              lat: 37.75,
-              lon: 126.280975,
-            },
-            {
-              id: "대전",
-              lat: 36.35111,
-              lon: 127.385,
-            },
-            {
-              id: "광주",
-              lat: 35.1595454,
-              lon: 126.8526012,
-            },
-            {
-              id: "제주",
-              lat: 33.348885,
-              lon: 126.280975,
-            },
-            {
-              id: "울산",
-              lat: 35.5936,
-              lon: 129.352,
-            },
-          ];
-          let pos = positionDate.find((item) => item.id === lastData);
-          let id = "1919a4d8a3f3056bf3768c371a57087f";
-
-          $.getJSON(
-            `https://api.openweathermap.org/data/2.5/onecall?lat=${pos.lat.toString()}&lon=${pos.lon.toString()}&exclude=minutely&appid=${id}&units=metric`,
-            function (data) {
-              //current
-              $(".temp>h1").text(data.current.temp.toFixed(1));
-              $(".sunrise>h2").text(
-                moment(data.current.sunrise * 1000).format("HH:mm")
-              );
-              $(".sunset>h2").text(
-                moment(data.current.sunset * 1000).format("HH:mm")
-              );
-              $(".feels_like>.small_temp>h2").text(
-                data.current.feels_like.toFixed(1)
-              );
-              $(".humidity>.small_temp>h2").text(data.current.humidity);
-              $(".forecast>h2").text(data.current.weather[0].description);
-              $(".forecast > img").attr(
-                "src",
-                `./img/weather/${worn}54/${data.current.weather[0].icon}.png`
-              );
-              lastdatas.temp = data.current.temp.toFixed(1);
-              lastdatas.feels_like = data.current.feels_like.toFixed(1);
-              lastdatas.icon = data.current.weather[0].icon;
-              lastdatas.icon;
-
-              if (
-                lastdatas.icon == "09d" ||
-                lastdatas.icon == "10d" ||
-                lastdatas.icon == "09n" ||
-                lastdatas.icon == "10n" ||
-                isRain
-              ) {
-                Rain();
-              } else if (
-                lastdatas.icon == "13d" ||
-                lastdatas.icon == "13n" ||
-                isSnow
-              ) {
-                Snow();
-              }
-              //daily
-              $(".daily_container").empty();
-              for (let i = 0; i < data.daily.length; i++) {
-                let bubble = $(
-                  `   <div class="ditem">
-                          <img src="./img/weather/${worn}30/${
-                    data.daily[i].weather[0].icon
-                  }.png" alt="" />
-                          <div class="small_temp">
-                            <h2>${data.daily[i].temp.day.toFixed(1)}</h2>
-                            <div class="small_dot"></div>
-                          </div>
-                          <h3>${moment(data.daily[i].dt * 1000).format(
-                            "ddd"
-                          )}</h3>
-                        </div>`
-                );
-                $(".daily_container").append(bubble);
-              }
-
-              $(".ditem:eq(0)").addClass("active");
-              $(".ditem:eq(0)>img").attr(
-                "src",
-                `./img/weather/${worn === "w" ? "n" : "w"}30/${
-                  data.daily[0].weather[0].icon
-                }.png`
-              );
-              //hourly
-              $(".hourly_container").empty();
-              for (let i = 0; i < 24; i++) {
-                let bubble = $(
-                  `   <div class="hitem">
-                          <img src="./img/weather/${worn}30/${
-                    data.hourly[i].weather[0].icon
-                  }.png" alt="" />
-                          <div class="small_temp">
-                            <h2>${data.hourly[i].temp.toFixed(1)}</h2>
-                            <div class="small_dot"></div>
-                          </div>
-                          <h3>${moment(data.hourly[i].dt * 1000).format(
-                            "HH:mm"
-                          )}</h3>
-                        </div>`
-                );
-                $(".hourly_container").append(bubble);
-              }
-              $(".hitem:eq(0)").addClass("active");
-              $(".hitem:eq(0)>img").attr(
-                "src",
-                `./img/weather/${worn == "w" ? "n" : "w"}30/${
-                  data.hourly[0].weather[0].icon
-                }.png`
-              );
-            }
-          );
-          $.getJSON(
-            `http://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.lat.toString()}&lon=${pos.lon.toString()}&appid=${id}`,
-            function (data) {
-              switch (data.list[0].main.aqi) {
-                case 1:
-                  $(".air_pollution>h2").text("Good");
-                  lastdatas.pol = "Good";
-                  break;
-                case 2:
-                  $(".air_pollution>h2").text("Fair");
-                  lastdatas.pol = "Fair";
-                  break;
-                case 3:
-                  $(".air_pollution>h2").text("Moderate");
-                  lastdatas.pol = "Moderate";
-                  break;
-                case 4:
-                  $(".air_pollution>h2").text("Poor");
-                  lastdatas.pol = "Poor";
-                  break;
-                case 5:
-                  $(".air_pollution>h2").text("very Poor");
-                  lastdatas.pol = "very Poor";
-                  break;
-                default:
-                  break;
-              }
-            }
-          );
-        }
-
-        function clearCanvas() {
-          // canvas
-          var cnvs = document.getElementById("canvas");
-          // context
-          var ctx = canvas.getContext("2d");
-
-          // 픽셀 정리
-          ctx.clearRect(0, 0, cnvs.width, cnvs.height);
-          // 컨텍스트 리셋
-          ctx.beginPath();
-        }
-
-        function Rain() {
-          var canvas = $("#canvas")[0];
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-
-          if (canvas.getContext) {
-            var ctx = canvas.getContext("2d");
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-            if (worn === "n") {
-              ctx.strokeStyle = "rgba(174,194,224,0.9)";
-            } else if (worn === "w") {
-              ctx.strokeStyle = "rgba(174,194,224,0.5)";
-            }
-
-            ctx.lineWidth = 1;
-            ctx.lineCap = "round";
-
-            var init = [];
-            var maxParts = 1000;
-            for (var a = 0; a < maxParts; a++) {
-              init.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                l: Math.random() * 1,
-                xs: -4 + Math.random() * 4 + 2,
-                ys: Math.random() * 10 + 10,
-              });
-            }
-
-            var particles = [];
-            for (var b = 0; b < maxParts; b++) {
-              particles[b] = init[b];
-            }
-
-            function draw() {
-              ctx.clearRect(0, 0, w, h);
-              for (var c = 0; c < particles.length; c++) {
-                var p = particles[c];
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-                ctx.stroke();
-              }
-              move();
-            }
-
-            function move() {
-              for (var b = 0; b < particles.length; b++) {
-                var p = particles[b];
-                p.x += p.xs;
-                p.y += p.ys;
-                if (p.x > w || p.y > h) {
-                  p.x = Math.random() * w;
-                  p.y = -20;
-                }
-              }
-            }
-
-            startR = setInterval(draw, 30);
-          }
-        }
-
-        function Snow() {
-          var canvas = $("#canvas")[0];
-          var ctx = canvas.getContext("2d");
-
-          var W = 375; //영역 넓이
-          var H = 750; //영역 높이
-          canvas.width = W;
-          canvas.height = H;
-
-          var mp = 100; //밀도 수치
-          var particles = [];
-          for (var i = 0; i < mp; i++) {
-            particles.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              r: Math.random() * 3, //입자 크기 최대치 조절
-              d: Math.random() * mp, //밀도
-            });
-          }
-
-          function draw() {
-            ctx.clearRect(0, 0, W, H);
-            if (worn === "n") {
-              ctx.fillStyle = "rgba(174,194,224,0.9)";
-            } else if (worn === "w") {
-              ctx.fillStyle = "rgba(255,255,255,0.5)";
-            }
-            ctx.beginPath();
-            for (var i = 0; i < mp; i++) {
-              var p = particles[i];
-              ctx.moveTo(p.x, p.y);
-              ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-            }
-            ctx.fill();
-            update();
-          }
-
-          var angle = 0;
-          function update() {
-            angle = 0;
-            for (var i = 0; i < mp; i++) {
-              var p = particles[i];
-              p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
-              p.x += Math.sin(angle);
-
-              if (p.x > W + 5 || p.x < -5 || p.y > H) {
-                if (i % 3 > 0) {
-                  particles[i] = {
-                    x: Math.random() * W,
-                    y: -10,
-                    r: p.r,
-                    d: p.d,
-                  };
-                } else {
-                  if (Math.sin(angle) > 0) {
-                    particles[i] = {
-                      x: -5,
-                      y: Math.random() * H,
-                      r: p.r,
-                      d: p.d,
-                    };
-                  } else {
-                    particles[i] = {
-                      x: W + 5,
-                      y: Math.random() * H,
-                      r: p.r,
-                      d: p.d,
-                    };
-                  }
-                }
-              }
-            }
-          }
-
-          startS = setInterval(draw, 33);
-        }
+        localStorage.setItem("A1", JSON.stringify(s1));
+        localStorage.setItem("A2", JSON.stringify(s2));
+        localStorage.setItem("A3", JSON.stringify(s3));
+        localStorage.setItem("A4", JSON.stringify(s4));
+        localStorage.setItem("A5", JSON.stringify(s5));
       });
     </script>
   </body>
